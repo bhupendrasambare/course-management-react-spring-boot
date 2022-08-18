@@ -7,24 +7,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Data
+@Table(name = "rating")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "chapters")
-public class Chapter {
-
+@Data
+public class Ratings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Lob
-    @Column(name = "description")
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "categories_id")
+    private Categories categories;
 
     @ManyToOne
-    @JoinColumn(name = "courses_id")
-    private Courses courses;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name ="value")
+    private float value;
 }

@@ -25,6 +25,14 @@ public class User {
     @Size(max = 20)
     String username;
 
+    @Size(max = 50)
+    @Column(name = "name")
+    String name;
+
+    @Size(max = 50)
+    @Column(name = "last")
+    String last;
+
     @NotBlank
     @Size(max = 50)
     @Email
@@ -33,6 +41,11 @@ public class User {
     @NotBlank
     @Size(max = 120)
     String password;
+
+
+    @Size(max = 100)
+    @Column(name = "avatar")
+    String avatar;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

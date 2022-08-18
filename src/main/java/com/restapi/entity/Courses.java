@@ -41,11 +41,18 @@ public class Courses {
     private String minutes;
 
     @Column(name = "price")
-    @Size(max = 20)
-    private String price;
+    private double price;
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "date")
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "mentor_id")
+    private User mentor;
+
+    @ManyToOne
+    @JoinColumn(name = "categories_id")
+    private Categories categories;
 }

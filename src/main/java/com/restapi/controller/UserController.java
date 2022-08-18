@@ -23,7 +23,7 @@ public class UserController {
 
     //@PreAuthorize("hasAnyAuthority('USER')") --
     @PreAuthorize("hasAnyAuthority('USER')")
-    @GetMapping
+    @GetMapping("/login-user")
     public String userRole(HttpServletRequest request){
         String token = request.getParameter("auth");
         User user =  jwtUtils.getUserFromJwtToken(token);

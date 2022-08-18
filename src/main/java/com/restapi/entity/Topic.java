@@ -29,4 +29,6 @@ public class Topic {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "name")
+    private String index;
 }
