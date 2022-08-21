@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface MediaRepository extends JpaRepository<Media,Long> {
 
-    @Query("Select u from Media where u.topic.id = :id")
+    @Query("Select u from Media u where u.topic.id = :id")
     List<Media> getMediaByTopicId(@Param("id") Long id);
 }
