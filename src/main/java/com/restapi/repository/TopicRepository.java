@@ -7,9 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic,Long> {
+
+    @Query("Select u from Topic u where u.id=:id")
+    Optional<Topic> getTopicById(@Param("id") Long id);
 
     @Query("Select u from Topic u where u.chapter.id=:id")
     List<Topic> getTopicByChapterId(@Param("id") Long id);

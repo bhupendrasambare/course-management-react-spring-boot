@@ -12,5 +12,8 @@ import java.util.List;
 public interface InterestRepository extends JpaRepository<Interest,Long> {
 
     @Query("Select u from Interest u where user.id = :id")
-    List<Interest> findAllByUserId(@Param("id")Long id);
+    List<Interest> GetAllByUserId(@Param("id")Long id);
+
+    @Override
+    void deleteById(Long id);
 }

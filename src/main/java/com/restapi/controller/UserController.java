@@ -19,14 +19,14 @@ import java.net.http.HttpRequest;
 public class UserController {
 
     @Autowired
-    JwtUtils jwtUtils;
+    JwtUtils loginService;
 
     //@PreAuthorize("hasAnyAuthority('USER')") --
     @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping("/login-user")
     public String userRole(HttpServletRequest request){
         String token = request.getParameter("auth");
-        User user =  jwtUtils.getUserFromJwtToken(token);
+        User user =  loginService.getUserFromJwtToken(token);
 
         return user.getEmail();
     }

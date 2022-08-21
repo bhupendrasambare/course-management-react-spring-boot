@@ -26,4 +26,7 @@ public class Ratings {
 
     @Column(name ="value")
     private float value;
+
+    @Column(name ="comment")
+    private String comment;
 }
