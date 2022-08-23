@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+
+import "./Index.css"
 
 import 'jquery/dist/jquery.min.js'
 
@@ -14,6 +15,8 @@ import 'font-awesome/css/font-awesome.min.css';
 
 //skeleton loading
 import "react-loading-skeleton/dist/skeleton.css";
+
+window.backend = "http://localhost:8080";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
