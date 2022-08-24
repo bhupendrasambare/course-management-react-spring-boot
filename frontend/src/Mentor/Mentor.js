@@ -1,8 +1,15 @@
 import React from 'react'
+import PageNotFound from '../OffPage/PageNotFound'
+import {  Route, Routes } from "react-router-dom";
 
 function Mentor() {
   return (
-    <div>Mentor</div>
+    <>
+    <Routes>
+            {/* <Route path="/login" element={<>Mentor<Login/></>}/> */}
+            <Route path="*" element={<PageNotFound/>} />
+        </Routes>
+    </>
   )
 }
 

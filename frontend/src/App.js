@@ -9,10 +9,10 @@ function App() {
         <>
             <BrowserRouter>
               <Routes>
-                    <Route path="/local" element={<Local/>}/>
-                    <Route path="/user" element={<User/>} />
-                    <Route path="/admin" element={<Admin/>} />
-                    <Route path="/mentor" element={<Mentor/>} />
+                    <Route path="/*" element={<Local/>}/>
+                    <Route path="/user/*" element={<User/>} />
+                    <Route path="/admin/*" element={<Admin/>} />
+                    <Route path="/mentor/*" element={<Mentor/>} />
                     <Route path="*" element={<PageNotFound/>} />
               </Routes>
             </BrowserRouter>

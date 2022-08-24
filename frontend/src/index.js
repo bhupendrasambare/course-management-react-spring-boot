@@ -4,6 +4,8 @@ import App from './App';
 
 import "./Index.css"
 
+import 'react-toastify/dist/ReactToastify.css';
+
 import 'jquery/dist/jquery.min.js'
 
 // bootstrap
