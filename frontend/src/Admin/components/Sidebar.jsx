@@ -10,6 +10,7 @@ import {
     FaThList
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
+import { Navbar } from './Navbar';
 
 
 const Sidebar = ({children}) => {
@@ -58,14 +59,14 @@ const Sidebar = ({children}) => {
                </div>
                {
                    menuItem.map((item, index)=>(
-                       <NavLink to={item.path} key={index} className="sidebar-link text-decoration-none" activeclassName="active">
+                       <NavLink to={item.path} key={index} className="sidebar-link text-decoration-none">
                            <div className="sidebar-icon px-2 py-1 rounded-pill shadow-lg">{item.icon}</div>
                            <div style={{display: isOpen ? "block" : "none"}} className="sidebar-link_text">{item.name}</div>
                        </NavLink>
                    ))
                }
            </div>
-           <main>{children}</main>
+           <main><Navbar/>{children}</main>
         </div>
     );
 };

@@ -1,20 +1,39 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
-import "../css/Login.css";
 import { ToastContainer,toast } from 'react-toastify';
+import { useSelector,useDispatch } from 'react-redux';
+import {useNavigate,useLocation} from "react-router-dom";
+import {adminLoginUser,adminLogoutUser} from "../../Redux/Action/AdminDataAction";
+import axios from 'axios';
 
+import "../css/Login.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
 
+    const myState = useSelector((state) => state.userDetails);
+    const dispach = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
+    const redirectPath = location.state?.path || "/";
+
     function submitform (e){
         e.preventDefault()
-        console.log(email);
-        console.log(password);
+        if(email == "" || password == ""){
+            toast.error('Please Enter Credentials!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return;
+        }
 
         axios({
             url: "http://localhost:8080/api/auth/signin",
@@ -34,6 +53,7 @@ function Login() {
                 }
             })
             if(loginSuccess){
+                dispach(adminLoginUser(res.data));
                 toast.success('🦄 Login Success Redirecting!', {
                     position: "top-right",
                     autoClose: 2000,
@@ -43,6 +63,9 @@ function Login() {
                     draggable: true,
                     progress: undefined,
                 }); 
+                setTimeout(function (){
+                    navigate(redirectPath, {replace:true});
+                }.bind(this),3000)
             }else{
                     toast.error('Invalid credentials!', {
                         position: "top-right",
@@ -58,16 +81,6 @@ function Login() {
         .catch((err) => {
             if(err.response.data.message =="Bad credentials"){
                 toast.error('Invalid credentials!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            }else if(err.response.data.error == "Bad Request"){
-                toast.error('Please Enter Credentials!', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,

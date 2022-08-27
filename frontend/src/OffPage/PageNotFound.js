@@ -2,7 +2,8 @@ import React from 'react'
 import "./PageNotFound.css"
 
 
-function PageNotFound() {
+function PageNotFound(data) {
+  console.log(data.data)
   return (
     <>
           <div className='page-not-found-body'>
@@ -29,7 +30,7 @@ function PageNotFound() {
                 <p className="page-not-found-message__text">We're sorry, the page you were looking for isn't found here. The link you followed may either be broken or no longer exists. Please try again, or take a look at our.</p>
               </div>
               <div className="page-not-found-error__nav e-nav">
-                <a href="/" className="page-not-found-e-nav__link"></a>
+                <a href={data.data} className="page-not-found-e-nav__link"></a>
               </div>
             </div>
 
