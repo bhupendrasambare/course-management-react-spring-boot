@@ -16,6 +16,7 @@ main{
     width: 100%;
 }
 .sidebar-sidebar{
+    background-color: #000;
     height: 100vh;
     width: 200px;
     transition: all 0.5s;
@@ -35,17 +36,24 @@ main{
 }
 .sidebar-link{
     display: flex;
-    color: black;
+    color: rgb(255, 255, 255);
     padding: 10px 15px;
     gap: 15px;
     transition: all 0.5s;
 }
 .sidebar-link:hover{
-    background:rgb(221, 221, 221);
+    background:rgb(255, 255, 255);
     color: #000;
     transition: all 0.5s;
 }
 .sidebar-active{
     background:rgb(221, 221, 221);
     color: #000;
+}
+.sidebar-link_text{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.dropdown-menu li{
+    width: 200px;
 }

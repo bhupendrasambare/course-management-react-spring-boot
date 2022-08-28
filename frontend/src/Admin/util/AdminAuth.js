@@ -9,8 +9,6 @@ export const Auth = ({children}) => {
 
     const data = useSelector((state) => state.userDetails);
 
-    console.log(data)
-
 
         if(data == null || data == undefined){
             return <Navigate to="/admin/login" state={{path:location.pathname}}/>

@@ -18,7 +18,7 @@ function Login() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
-    const redirectPath = location.state?.path || "/";
+    const redirectPath = location.state?.path || "/admin/dashboard";
 
     function submitform (e){
         e.preventDefault()

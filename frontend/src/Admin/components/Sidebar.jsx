@@ -5,9 +5,10 @@ import {
     FaBars,
     FaUserAlt,
     FaRegChartBar,
-    FaCommentAlt,
-    FaShoppingBag,
-    FaThList
+    FaBookOpen,
+    FaTimes,
+    FaThList,
+    FaUsers
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import { Navbar } from './Navbar';
@@ -18,50 +19,45 @@ const Sidebar = ({children}) => {
     const toggle = () => setIsOpen (!isOpen);
     const menuItem=[
         {
-            path:"/",
+            path:"/admin/dashboard",
             name:"Dashboard",
             icon:<FaTh/>
         },
         {
-            path:"/about",
-            name:"About",
-            icon:<FaUserAlt/>
-        },
-        {
-            path:"/analytics",
+            path:"/admin/analytics",
             name:"Analytics",
             icon:<FaRegChartBar/>
         },
         {
-            path:"/comment",
-            name:"Comment",
-            icon:<FaCommentAlt/>
+            path:"/admin/mentors",
+            name:"Mentors",
+            icon:<FaUserAlt/>
         },
         {
-            path:"/product",
-            name:"Product",
-            icon:<FaShoppingBag/>
+            path:"/admin/users",
+            name:"Users",
+            icon:<FaUsers/>
         },
         {
-            path:"/productList",
-            name:"Product List",
-            icon:<FaThList/>
+            path:"/admin/course",
+            name:"Courses",
+            icon:<FaBookOpen/>
         }
     ]
     return (
         <div className="d-flex">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar-sidebar shadow">
+           <div style={{width: isOpen ? "250px" : "70px"}} className="sidebar-sidebar shadow">
                <div className="sidebar-top_section">
-                   <h1 style={{display: isOpen ? "block" : "none"}} className="sidebar-logo">Admin</h1>
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="sidebar-bars">
-                       <FaBars onClick={toggle}/>
+                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ms-2">Admin</h4>
+                   <div style={{marginLeft: isOpen ? "70px" : "10px"}} className="sidebar-bars">
+                       { !isOpen ? <FaBars className='text-light ' onClick={toggle}/> : <FaTimes className='text-light ' onClick={toggle}/>}
                    </div>
                </div>
                {
                    menuItem.map((item, index)=>(
                        <NavLink to={item.path} key={index} className="sidebar-link text-decoration-none">
-                           <div className="sidebar-icon px-2 py-1 rounded-pill shadow-lg">{item.icon}</div>
-                           <div style={{display: isOpen ? "block" : "none"}} className="sidebar-link_text">{item.name}</div>
+                           <div className="sidebar-icon px-2 py-1 rounded-pill shadow-lg fs-4">{item.icon}</div>
+                           <div style={{display: isOpen ? "block" : "none"}} className="sidebar-link_text pt-2">{item.name}</div>
                        </NavLink>
                    ))
                }

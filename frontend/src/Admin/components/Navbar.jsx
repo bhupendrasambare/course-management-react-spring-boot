@@ -26,6 +26,7 @@ export const Navbar = () => {
 
                         <ul className="dropdown-menu shadow border-0 " aria-labelledby="dropdownMenuLink">
                             <li><a className="dropdown-item" onClick={logout}>Logout</a></li>
+                            <li><a className="dropdown-item" href='account'>Account</a></li>
                         </ul>
                     </div>
                 </a>
