@@ -125,6 +125,8 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        user.setName(signUpRequest.getName());
+        user.setLast(signUpRequest.getLast());
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

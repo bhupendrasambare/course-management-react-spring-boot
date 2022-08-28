@@ -2,10 +2,12 @@ package com.restapi.controller;
 
 import com.restapi.entity.Categories;
 import com.restapi.entity.User;
+import com.restapi.entity.enums.ERole;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.security.jwt.JwtUtils;
 import com.restapi.service.CategoriesService;
 import com.restapi.service.FileUploadService;
+import com.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -41,6 +43,28 @@ public class AdminController {
 
     @Autowired
     CategoriesService categoriesService;
+
+    @Autowired
+    UserService userService;
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping("/get-users-by-role")
+    public ApiResponse<?> getUsersList(HttpServletRequest request){
+        String user = request.getParameter("role").toLowerCase(Locale.ROOT);
+        ERole role = ERole.USER;
+        if(user.equals("mentor")){
+            role = ERole.MENTOR;
+        }
+        List<User> users = userService.getUsersByRole(role);
+
+        return new ApiResponse<List<User>>(HttpStatus.OK,"List Of "+user,users);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping("/check-auth")
+    public ApiResponse<?> checkAuth(HttpServletRequest request){
+        return new ApiResponse<String>(HttpStatus.OK,"All Categories","categories");
+    }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/get-categories")
