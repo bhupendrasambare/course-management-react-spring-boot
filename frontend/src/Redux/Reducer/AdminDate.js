@@ -1,16 +1,16 @@
 const initialuser = {};
 
-const userDetails = (state = initialuser,action) =>{
+const adminDetails = (state = initialuser,action) =>{
     switch(action.type){
-        case "GET-USER" : {
+        case "GET-ADMIN" : {
             return state;
         }
 
-        case "LOGIN-USER" :{
+        case "LOGIN-ADMIN" :{
             return action.payload
         }
 
-        case "LOGOUT-USER" : {
+        case "LOGOUT-ADMIN" : {
             return null;
         }
 
@@ -18,4 +18,4 @@ const userDetails = (state = initialuser,action) =>{
     }
 } 
 
-export default userDetails;
+export default adminDetails;

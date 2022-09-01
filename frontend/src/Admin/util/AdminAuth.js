@@ -7,13 +7,15 @@ export const Auth = ({children}) => {
 
     const location = useLocation();
 
-    const data = useSelector((state) => state.userDetails);
+    const data = useSelector((state) => state.adminDetails);
+    const admin = useSelector((state) => state.adminDetails.admin);
+
+    if(data == null || data == undefined || admin == null || admin == undefined){
+        return <Navigate to="/admin/login" state={{path:location.pathname}}/>
+    }else{
+        return(<>{children}</>)
+    }
 
 
-        if(data == null || data == undefined){
-            return <Navigate to="/admin/login" state={{path:location.pathname}}/>
-        }else{
-            return(<>{children}</>)
-        }
 
 }

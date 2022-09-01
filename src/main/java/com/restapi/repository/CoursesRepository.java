@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CoursesRepository extends JpaRepository<Courses,Long> {
@@ -14,8 +15,14 @@ public interface CoursesRepository extends JpaRepository<Courses,Long> {
     @Query("Select u from Courses u")
     List<Courses> findAllCourses();
 
+    @Query("Select u from Courses u where u.id = :id")
+    Optional<Courses> getCoursesById(@Param("id")Long id);
+
     @Query("Select u from Courses u where u.mentor.id = :id")
     List<Courses> getCoursesByMentorId(@Param("id")Long id);
+
+    @Query("Select u from Courses u where u.name=:name ")
+    Optional<Courses> validateCoursesByName(@Param("name")String name);
 
     @Query("Select u from Courses u where u.name Like CONCAT('%', :name ,'%')")
     List<Courses> getCoursesByName(@Param("name")String name);

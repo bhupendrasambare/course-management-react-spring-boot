@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 import $ from 'jquery'
 
 
-function Mentors() {
+function Users() {
     const admin = useSelector((state) => state.adminDetails.admin);
 
     const [data,setDate] = useState(null);
 
     useEffect(() =>{
         if(data == null){
-            axios('http://localhost:8080/api/admin/get-users-by-role?auth=token '+admin.token+'&role=mentor').then((response) =>{
+            axios('http://localhost:8080/api/admin/get-users-by-role?auth=token '+admin.token+'&role=user').then((response) =>{
                 setDate(response.data.data);
                 setTimeout(function(){
                     $("#data-table").DataTable();
@@ -24,7 +24,7 @@ function Mentors() {
     <>
         <div className='card pt-3 p-3 m-3 border-0 shadow'>
             <div className='container'> 
-                <h5 className='mb-3'>Mentors List</h5>
+                <h5 className='mb-3'>Users List</h5>
                 <table id="data-table" className="table table-hover">
                     <thead className='mt-3'>
                         <tr>
@@ -55,4 +55,4 @@ function Mentors() {
   )
 }
 
-export default Mentors
+export default Users

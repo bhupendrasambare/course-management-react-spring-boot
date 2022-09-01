@@ -1,17 +1,17 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { adminLogoutUser } from '../../Redux/Action/AdminDataAction';
+import { mentorLogoutUser } from '../../Redux/Action/MentorDataAction';
 
 export const Navbar = () => {
-    const username = useSelector((state) => state.adminDetails.admin.username);
+    const username = useSelector((state) => state.mentorDetails.mentor.username);
     const dispach = useDispatch();
     const navigate = useNavigate();
 
     function logout(){
-        dispach(adminLogoutUser());
+        dispach(mentorLogoutUser());
 
-        navigate("/admin/login");
+        navigate("/mentor/login");
     }
   return (
     <>

@@ -16,6 +16,13 @@ public class CourseService {
         return coursesRepository.save(courses);
     }
 
+    public Courses getCourseById(Long id){
+        return coursesRepository.getCoursesById(id).orElse(null);
+    }
+
+    public Courses validateCoursesByName(String name){
+        return coursesRepository.validateCoursesByName(name).orElse(null);
+    }
     public List<Courses> findAllCourses(){
         return coursesRepository.findAllCourses();
     }

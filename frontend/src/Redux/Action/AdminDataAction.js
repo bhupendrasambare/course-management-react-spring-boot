@@ -1,19 +1,19 @@
 export const adminUser = () =>{
     return{
-        type : "GET-USER"
+        type : "GET-ADMIN"
     }
 }
-export const adminLoginUser = (user) =>{
+export const adminLoginUser = (admin) =>{
     return {
-        type:"LOGIN-USER",
+        type:"LOGIN-ADMIN",
         payload: {
-            user
+            admin
         }
     }
 }
 
 export const adminLogoutUser = () =>{
     return {
-        type:"LOGOUT-USER"
+        type:"LOGOUT-ADMIN"
     }
 }

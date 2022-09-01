@@ -1,9 +1,10 @@
-import userDetails from "./Reducer/AdminDate";
-
+import adminDetails from "./Reducer/AdminDate";
+import mentorDetails from "./Reducer/MentorData";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-    userDetails
+    adminDetails,
+    mentorDetails
 })
 
 export default rootReducer;

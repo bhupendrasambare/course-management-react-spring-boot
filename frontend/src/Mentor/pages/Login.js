@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { ToastContainer,toast } from 'react-toastify';
 import { useSelector,useDispatch } from 'react-redux';
 import {useNavigate,useLocation} from "react-router-dom";
-import {adminLoginUser,adminLogoutUser} from "../../Redux/Action/AdminDataAction";
+import {mentorLoginUser} from "../../Redux/Action/MentorDataAction";
 import axios from 'axios';
 
-import "../css/Login.css";
+import "../CSS/Login.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
-    const redirectPath = location.state?.path || "/admin/dashboard";
+    const redirectPath = location.state?.path || "/mentor/dashboard";
 
     function submitform (e){
         e.preventDefault()
@@ -47,12 +47,12 @@ function Login() {
         }).then((res) => { 
             var loginSuccess = false;
             res.data.roles.forEach(function all(e){
-                if(e == "ADMIN"){
+                if(e == "MENTOR"){
                     loginSuccess=true;
                 }
             })
             if(loginSuccess){
-                dispach(adminLoginUser(res.data));
+                dispach(mentorLoginUser(res.data));
                 toast.success('🦄 Login Success Redirecting!', {
                     position: "top-right",
                     autoClose: 2000,
@@ -112,7 +112,7 @@ function Login() {
                     <div className="card my-5">
                         <div className='  cardbody-color'>
 
-                            <h2 className="text-center text-dark mt-3">Admin Login</h2>
+                            <h2 className="text-center text-dark mt-3">Mentor Login</h2>
                             <div className="text-center mb-2 text-dark">Manage Platform</div>
 
                                 <form className="card-body cardbody-color p-lg-5" onSubmit={(e) =>submitform(e)}>
@@ -124,7 +124,7 @@ function Login() {
 
                                     <div className="mb-3">
                                     
-                                    <input type="text" className="form-control" id="email" placeholder="Admin Usename" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                                    <input type="text" className="form-control" id="email" placeholder="Mentor Usename" value={email} onChange={(e)=>setEmail(e.target.value)}/>
 
                                     </div>
                                     <div className="mb-3">

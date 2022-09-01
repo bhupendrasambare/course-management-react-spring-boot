@@ -7,8 +7,8 @@ import {
     FaRegChartBar,
     FaBookOpen,
     FaTimes,
-    FaThList,
-    FaUsers
+    FaUsers,
+    FaCommentAlt
 }from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import { Navbar } from './Navbar';
@@ -20,36 +20,31 @@ const Sidebar = ({children}) => {
     const closeToggle = () =>setIsOpen(false);
     const menuItem=[
         {
-            path:"/admin/dashboard",
+            path:"/mentor/dashboard",
             name:"Dashboard",
             icon:<FaTh/>
         },
         {
-            path:"/admin/analytics",
+            path:"/mentor/analytics",
             name:"Analytics",
             icon:<FaRegChartBar/>
         },
         {
-            path:"/admin/mentors",
-            name:"Mentors",
-            icon:<FaUserAlt/>
-        },
-        {
-            path:"/admin/users",
-            name:"Users",
-            icon:<FaUsers/>
-        },
-        {
-            path:"/admin/course",
+            path:"/mentor/courses",
             name:"Courses",
             icon:<FaBookOpen/>
+        },
+        {
+            path:"/mentor/feedbacks",
+            name:"Feedback",
+            icon:<FaCommentAlt/>
         }
     ]
     return (
         <div className="d-flex sidebar-height">
-           <div style={{width: isOpen ? "250px" : "70px"}} onMouseEnter={toggle} onMouseLeave={closeToggle}  className="sidebar-sidebar shadow">
+           <div style={{width: isOpen ? "250px" : "70px"}} onMouseEnter={toggle} onMouseLeave={closeToggle} className="sidebar-sidebar shadow">
                <div className="sidebar-top_section">
-                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ms-2">Admin</h4>
+                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ms-2">Mentor</h4>
                    <div style={{marginLeft: isOpen ? "70px" : "10px"}} className="sidebar-bars">
                        { !isOpen ? <FaBars className='text-light '/> : <FaTimes className='text-light ' onClick={closeToggle}/>}
                    </div>
