@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
-import { Navigate, useLocation, useNavigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
 export const Auth = ({children}) => {
-    const navigate = useNavigate();
 
     const location = useLocation();
 
@@ -12,7 +11,10 @@ export const Auth = ({children}) => {
 
     if(data == null || data == undefined || admin == null || admin == undefined){
         return <Navigate to="/admin/login" state={{path:location.pathname}}/>
-    }else{
+    }else{            
+        if(new Date(admin.expirey) < new Date()){
+        return <Navigate to="/admin/login" state={{path:location.pathname}}/>
+    }
         return(<>{children}</>)
     }
 

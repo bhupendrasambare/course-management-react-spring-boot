@@ -11,6 +11,9 @@ export const Auth = ({children}) => {
         if(data == null || data == undefined || mentor == null || mentor == undefined){
             return <Navigate to="/mentor/login" state={{path:location.pathname}}/>
         }else{
+            if(new Date(mentor.expirey) < new Date()){
+                return <Navigate to="/mentor/login" state={{path:location.pathname}}/>
+            }
             return(<>{children}</>)
         }
 

@@ -1,4 +1,14 @@
 .course-card{
     width: 250px;
-    max-width: 330px;
+    max-width: 300px;
+}
+.card-desc-height{
+    height: 100px;
+}
+.course-card img{
+    height: 120px;
+}
+.quill {
+    height: 350px;
+    margin-bottom: 60px;
 }

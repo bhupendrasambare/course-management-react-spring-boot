@@ -11,7 +11,7 @@ const mentorDetails = (state = initialmentor,action) =>{
         }
 
         case "LOGOUT-MENTOR" : {
-            return null;
+            return {};
         }
 
         default :return state;

@@ -52,6 +52,9 @@ function Login() {
                 }
             })
             if(loginSuccess){
+                var myDate = new Date() // your date object
+                myDate.setHours(myDate.getHours() + 24)
+                res.data.expirey=myDate;
                 dispach(mentorLoginUser(res.data));
                 toast.success('🦄 Login Success Redirecting!', {
                     position: "top-right",
@@ -78,6 +81,17 @@ function Login() {
             }
         })
         .catch((err) => {
+            if(err.message != null){
+                toast.error(err.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }else{
             if(err.response.data.message =="Bad credentials"){
                 toast.error('Invalid credentials!', {
                     position: "top-right",
@@ -99,7 +113,7 @@ function Login() {
                     progress: undefined,
                 });
             }
-                
+        }   
             console.log(err.response.data);
         });
     }

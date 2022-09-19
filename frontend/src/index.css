@@ -60,3 +60,10 @@ main{
 .dropdown-menu li{
     width: 200px;
 }
+.dataTables_empty{
+    color: rgb(255, 40, 40);
+    font-weight: bold;
+}
+#data-table{
+    margin-top: 20px;
+}

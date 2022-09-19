@@ -11,7 +11,7 @@ const adminDetails = (state = initialuser,action) =>{
         }
 
         case "LOGOUT-ADMIN" : {
-            return null;
+            return {};
         }
 
         default :return state;

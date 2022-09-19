@@ -12,4 +12,5 @@ public class ApiResponse<T> {
     public HttpStatus status;
     public String message;
     public T data;
+    boolean success;
 }

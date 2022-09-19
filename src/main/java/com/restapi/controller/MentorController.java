@@ -1,11 +1,13 @@
 package com.restapi.controller;
 
 import com.restapi.entity.Categories;
+import com.restapi.entity.Chapter;
 import com.restapi.entity.Courses;
 import com.restapi.entity.User;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.security.jwt.JwtUtils;
 import com.restapi.service.CategoriesService;
+import com.restapi.service.ChapterService;
 import com.restapi.service.CourseService;
 import com.restapi.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ public class MentorController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    ChapterService chapterService;
+
     @PreAuthorize("hasAnyAuthority('MENTOR')")
     @GetMapping("/login-user")
     public String userRole(HttpServletRequest request){
@@ -54,22 +59,22 @@ public class MentorController {
     public ApiResponse<?> getCategories(HttpServletRequest request){
         List<Categories> categories = categoriesService.findAllCategories();
 
-        return new ApiResponse<List<Categories>>(HttpStatus.OK,"Categories List",categories);
+        return new ApiResponse<List<Categories>>(HttpStatus.OK,"Categories List",categories,true);
     }
 
     @PreAuthorize("hasAnyAuthority('MENTOR')")
     @GetMapping("/validate-course-name")
-    public ApiResponse<?> getCategories(@RequestParam("name")String name){
+    public ApiResponse<?> getCourseByName(@RequestParam("name")String name){
         Courses courses = courseService.validateCoursesByName(name);
         if(courses == null){
-            return new ApiResponse<>(HttpStatus.OK,"Course Name Don't Exists",true);
+            return new ApiResponse<>(HttpStatus.OK,"Course Name Don't Exists",true,true);
         }
-        return new ApiResponse<>(HttpStatus.CONFLICT,"Course Name Exists",false);
+        return new ApiResponse<>(HttpStatus.CONFLICT,"Course Name Exists",false,false);
     }
 
     @PreAuthorize("hasAnyAuthority('MENTOR')")
     @PostMapping("/add-edit-course")
-    public ApiResponse<?> getCategories(HttpServletRequest request,
+    public ApiResponse<?> addEditCourse(HttpServletRequest request,
                                         @RequestParam(name = "file",required = false)MultipartFile file) throws IOException {
         String token = request.getParameter("auth");
         User user =  loginService.getUserFromJwtToken(token);
@@ -93,12 +98,12 @@ public class MentorController {
         }else{
             Courses temp = courseService.validateCoursesByName(name);
             if(temp != null){
-                return new ApiResponse<>(HttpStatus.CONFLICT,"Course Name Exists",null);
+                return new ApiResponse<>(HttpStatus.CONFLICT,"Course Name Exists",null,false);
             }
             course = new Courses();
         }
         if(category == null){
-            return new ApiResponse<>(HttpStatus.CONFLICT,"Categories Not Found",null);
+            return new ApiResponse<>(HttpStatus.CONFLICT,"Categories Not Found",null,false);
         }
         course.setName(name);
         course.setCategories(category);
@@ -116,8 +121,88 @@ public class MentorController {
         }
 
         Courses result = courseService.saveCourse(course);
-        return new ApiResponse<>(HttpStatus.OK,"Course Created",result);
+        return new ApiResponse<>(HttpStatus.OK,"Course Created",result,true);
     }
 
 
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @GetMapping("/get-course")
+    public ApiResponse<?> getCourses(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Courses> result= courseService.getCoursesByMentorId(user.getId());
+
+        return new ApiResponse<>(HttpStatus.OK,"Courses",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @GetMapping("/get-course-by-id")
+    public ApiResponse<?> getCoursesById(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        Courses result= courseService.getCourseById(id);
+        if(result.getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Courses Not Found",false,false);
+        }
+        return new ApiResponse<>(HttpStatus.OK,"Courses Details",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @GetMapping("/get-chapters")
+    public ApiResponse<?> getChaptersByCourseId(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Chapter> result= chapterService.getChapterByCourseId(id);
+        if(result.size() > 0 && result.get(0).getCourses().getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Courses Not Found",false,false);
+        }
+        return new ApiResponse<>(HttpStatus.OK,"Courses Details",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @GetMapping("/get-chapter-by-id")
+    public ApiResponse<?> getChapterById(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        Chapter result= chapterService.getChapterById(id);
+        if(result.getCourses().getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Chapter Not Found",false,false);
+        }
+        return new ApiResponse<>(HttpStatus.OK,"Chapter Details",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @PostMapping("/add-edit-chapter")
+    public ApiResponse<?>  saveChapter(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        Courses course = courseService.getCourseById(id);
+        if(course == null || course.getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Courses Not Found",false,false);
+        }
+        String chapterId = request.getParameter("chapter");
+        Chapter chapter = null;
+        if(chapterId != null && chapterId != ""){
+            chapter = chapterService.getChapterById(Long.valueOf(chapterId));
+            if(chapter == null){
+                return new ApiResponse<>(HttpStatus.OK,"Chapter Not Found",false,true);
+            }
+        }else{
+            chapter = new Chapter();
+        }
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+
+        chapter.setName(name);
+        chapter.setDescription(description);
+        chapter.setCourses(course);
+        chapterService.saveChapter(chapter);
+        return new ApiResponse<>(HttpStatus.OK,"Chapter Saved",true,true);
+    }
 }

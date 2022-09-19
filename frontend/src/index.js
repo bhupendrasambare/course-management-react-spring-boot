@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 
 import "./index.css"
 
+import 'reactjs-popup/dist/index.css';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 import 'jquery/dist/jquery.min.js'
@@ -31,12 +33,10 @@ window.backend = "http://localhost:8080";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <App />
       </PersistGate >
     </Provider>
-  </React.StrictMode>
 );
 

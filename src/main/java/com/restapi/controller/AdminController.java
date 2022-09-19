@@ -57,20 +57,20 @@ public class AdminController {
         }
         List<User> users = userService.getUsersByRole(role);
 
-        return new ApiResponse<List<User>>(HttpStatus.OK,"List Of "+user,users);
+        return new ApiResponse<List<User>>(HttpStatus.OK,"List Of "+user,users,true);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/check-auth")
     public ApiResponse<?> checkAuth(HttpServletRequest request){
-        return new ApiResponse<String>(HttpStatus.OK,"All Categories","categories");
+        return new ApiResponse<String>(HttpStatus.OK,"All Categories","categories",true);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/get-categories")
     public ApiResponse<?> getCategories(HttpServletRequest request){
         List<Categories> categories = categoriesService.findAllCategories();
-        return new ApiResponse<List<Categories>>(HttpStatus.OK,"All Categories",categories);
+        return new ApiResponse<List<Categories>>(HttpStatus.OK,"All Categories",categories,true);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -97,6 +97,6 @@ public class AdminController {
         }
 
         Categories result = categoriesService.saveCategories(categories);
-        return new ApiResponse<Categories>(HttpStatus.OK,"All Categories",result);
+        return new ApiResponse<Categories>(HttpStatus.OK,"All Categories",result,true);
     }
 }

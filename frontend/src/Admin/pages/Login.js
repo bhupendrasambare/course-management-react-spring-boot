@@ -52,6 +52,9 @@ function Login() {
                 }
             })
             if(loginSuccess){
+                var myDate = new Date() // your date object
+                myDate.setHours(myDate.getHours() + 24)
+                res.data.expirey=myDate;
                 dispach(adminLoginUser(res.data));
                 toast.success('🦄 Login Success Redirecting!', {
                     position: "top-right",

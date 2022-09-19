@@ -7,6 +7,8 @@ import Dashboard from '../Mentor/pages/Dashboard';
 import Sidebar from './components/Sidebar';
 import Courses from './pages/Courses';
 import AddCourse from './pages/AddCourse';
+import CourseChapters from './pages/CourseChapters';
+import ManageTopics from './pages/ManageTopics';
 
 function Mentor() {
   return (
@@ -17,6 +19,8 @@ function Mentor() {
               <Route path="/dashboard" element={<><Auth><Sidebar><Dashboard/></Sidebar></Auth></>}/>
               <Route path="/courses" element={<><Auth><Sidebar><Courses/></Sidebar></Auth></>}/>
               <Route path="/add-course" element={<><Auth><Sidebar><AddCourse/></Sidebar></Auth></>}/>
+              <Route path="/course/chapters/:id" element={<><Auth><Sidebar><CourseChapters/></Sidebar></Auth></>}/>
+              <Route path="/course/manage-topics/:id" element={<><Auth><Sidebar><ManageTopics/></Sidebar></Auth></>}/>
               <Route path="*" element={<PageNotFound data="/mentor/dashboard"/>} />
         </Routes>
     </>

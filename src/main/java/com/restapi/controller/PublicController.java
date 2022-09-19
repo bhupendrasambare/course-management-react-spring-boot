@@ -35,7 +35,7 @@ public class PublicController {
     @ResponseBody
     public ApiResponse<?> getCategories(HttpServletRequest request){
         List<Categories> categories = categoriesService.findAllCategories();
-        return new ApiResponse<List<Categories>>(HttpStatus.OK,"All Categories",categories);
+        return new ApiResponse<List<Categories>>(HttpStatus.OK,"All Categories",categories,true);
     }
 
     @GetMapping("/resources")
