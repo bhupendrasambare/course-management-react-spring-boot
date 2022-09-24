@@ -102,8 +102,6 @@ function Login() {
                     progress: undefined,
                 });
             }
-                
-            console.log(err.response.data);
         });
     }
   return (

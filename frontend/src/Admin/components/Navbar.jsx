@@ -18,9 +18,9 @@ export const Navbar = () => {
         <nav className="navbar navbar-light shadow">
             <div className="w-100 container-fluid">
 
-                <a className="navbar-brand ms-auto">
+                <a className="navbar-brand ml-auto">
                     <div className="dropdown">
-                        <a className="p-2 dropdown-toggle text-dark text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a className="p-2 dropdown-toggle text-dark text-decoration-none" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                         <i className="mx-2 fa fa-user fa-1x"></i>{username}
                         </a>
 

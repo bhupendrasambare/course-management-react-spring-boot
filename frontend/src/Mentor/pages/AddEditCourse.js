@@ -3,33 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { ToastContainer,toast } from 'react-toastify';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.bubble.css';
+import ReactSummernote from "react-summernote";
+import "react-summernote/dist/react-summernote.css"; // import styles
+import "bootstrap/dist/css/bootstrap.css";
 import "../CSS/Courses.css"
-import { useSearchParams } from 'react-router-dom';
-function AddCourse() {
 
-    const modules = {
-        toolbar: [
-          [{ 'font': [] }],
-          [{ 'size': ['small', false, 'large', 'huge'] }],
-          ['bold', 'italic', 'underline'],
-          [{'list': 'ordered'}, {'list': 'bullet'}],
-          [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }],
-          ['clean']
-        ]
-    };
-
-    const formats = [
-        'font',
-        'size',
-        'bold', 'italic', 'underline',
-        'list', 'bullet',
-        'align',
-        'color', 'background'
-      ];
+function AddEditCourse() {
 
     const mentor = useSelector((state) => state.mentorDetails.mentor);
     const navigate = useNavigate();
@@ -207,7 +186,6 @@ function AddCourse() {
 
         const queryparams = new URLSearchParams(window.location.search);
         setId(queryparams.get("id"));
-        console.log(id)
 
         if(id != null && id != undefined && name == ""){
             axios({
@@ -217,7 +195,6 @@ function AddCourse() {
                     id:id
                 },
             }).then((res) => { 
-                console.log(res.data.data);
                 var coursedata = res.data.data;
                 setStaticName(coursedata.name);
                 setName(coursedata.name);
@@ -238,51 +215,60 @@ function AddCourse() {
         <ToastContainer />
         <div className='m-3 card shadow py-3 px-2'>
             <div className='d-flex w-100'>
-                    <div><h5 className='m-3'>Add Course</h5></div>
-                    <div className=' ms-auto'><a  onClick={() =>navigate(-1)} ><button className='m-3 btn btn-sm btn-danger'>Cancel</button></a></div>
+                    <div><h5 className='m-3'>{(id)?"Edit Course":"Add Course"}</h5></div>
+                    <div className=' ml-auto'><a  onClick={() =>navigate(-1)} ><button className='m-3 btn btn-sm btn-danger'>Cancel</button></a></div>
             </div>
             <div>
                 <form className='row' onSubmit={addCategoriesForm}>
                     <div className='col-sm-6 px-4 mt-2'>
                         <label for="course-name">Course Name</label><label id='courseNameWarning' className='d-none ms-2 text-danger fw-bold'>Course Name Exist</label>
-                        <input type="text" placeholder="Course Name" value={name} onChange={(e) => {setName(e.target.value);validateName(e.target.value)}} className='form-control mt-2' />
+                        <input id="course-name" type="text" placeholder="Course Name" value={name} onChange={(e) => {setName(e.target.value);validateName(e.target.value)}} className='form-control mt-2' />
                     </div>      
                     <div className='col-sm-6 px-4 mt-2 row'>
                         <div className='col-sm-8'>
                             <label for="course-image">Course Image</label>
-                            <input type="file" className='form-control mt-2' placeholder='Cours Banner' onChange={(e) => {setSelectedFile(e.target.files[0]);setFilePreview(URL.createObjectURL(e.target.files[0]))}}/>
+                            <input id="course-image" type="file" className='form-control mt-2' placeholder='Cours Banner' onChange={(e) => {setSelectedFile(e.target.files[0]);setFilePreview(URL.createObjectURL(e.target.files[0]))}}/>
                         </div>
                         <div className='col-sm-4'>
                             {filePreview &&  <img className='shadow m-2' height={100} src={filePreview} /> }
                         </div>
                     </div>      
                     <div className='col-sm-12 p-4 mt-2'>
-                        <label for="course-image">Course Description</label>
-                        <ReactQuill class="description-box" theme="snow"  modules={modules}
-				formats={formats} value={description} onChange={(e) =>{setDescription(e);console.log(description)}} />
+                        <label>Course Description</label>
+                        <ReactSummernote height={600} options={{
+                                height: 350,
+                                dialogsInBody: true,
+                                toolbar: [
+                                ["style", ["style"]],
+                                ["font", ["bold", "underline", "clear"]],
+                                ["fontname", ["fontname"]],
+                                ["para", ["ul", "ol", "paragraph"]],
+                                ["table", ["table"]],
+                                ["insert", ["link", "picture", "video"]],
+                                ["view", ["codeview"]]
+                                ]}} value={description} onChange={(e) =>{setDescription(e)}} />
                         {/* <textarea onChange={(e) => setDescription(e.target.value)} placeholder='Course Description' className='form-control mt-1'></textarea> */}
                     </div>      
                     <div className='col-sm-6 px-4 mt-2 row'>
                         <div className='col-sm-3'>
-                            <label for="course-image">Duration in Hr</label>
-                            <input onChange={(e) => setHr(e.target.value)} value={hr} type="number" className='form-control mt-2' placeholder='Hour'/>
+                            <label for="course-hr">Duration in Hr</label>
+                            <input id="course-hr" onChange={(e) => setHr(e.target.value)} value={hr} type="number" className='form-control mt-2' placeholder='Hour'/>
                         </div>
                         <div className='col-sm-3'>
-                            <label for="course-image">Duration in Min</label>
-                            <input onChange={(e) => setMin(e.target.value)} value={min} type="number" className='form-control mt-2' placeholder='Minutes'/>
+                            <label for="course-min">Duration in Min</label>
+                            <input id="course-min" onChange={(e) => setMin(e.target.value)} value={min} type="number" className='form-control mt-2' placeholder='Minutes'/>
                         </div>
                         <div className='col-sm-6'>
-                            <label for="course-image">Course price in Rs.</label>
-                            <input onChange={(e) => setPrice(e.target.value)} type="number" className='form-control mt-2' value={price} placeholder='Course Price in Rs.' step="0.01"/>
+                            <label for="course-rs">Course price in Rs.</label>
+                            <input id="course-rs" onChange={(e) => setPrice(e.target.value)} type="number" className='form-control mt-2' value={price} placeholder='Course Price in Rs.' step="0.01"/>
                         </div>
                     </div>     
                     <div className='col-sm-6 px-4 mt-2 row'>
                         <div className='col-sm-8'>
-                            <label for="course-image">Course Categories</label>
-                            <select value={categorie} onChange={(e) => setCategorie(e.target.value)} className='form-control mt-2' placeholder='Cours Banner'>
+                            <label for="course-categories">Course Categories</label>
+                            <select id="course-categories" value={categorie} onChange={(e) => setCategorie(e.target.value)} className='form-control mt-2' placeholder='Cours Banner'>
                                 {(categories != null)?categories.map((result) =>
                                     {
-                                        console.log(categorie)
                                         return (
                                             <option value={result.id}>{result.name}</option>
                                             )
@@ -292,7 +278,7 @@ function AddCourse() {
                         </div>
                     </div>
                     <div className='col-sm-6 px-4 mt-3'>
-                        <button className='btn-success btn'>Save Course</button>
+                        <button className='btn-success btn'>{(id)?"Edit Course":"Save Course"}</button>
                     </div>
                 </form>
             </div>
@@ -301,4 +287,4 @@ function AddCourse() {
   )
 }
 
-export default AddCourse
+export default AddEditCourse

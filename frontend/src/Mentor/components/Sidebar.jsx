@@ -44,7 +44,7 @@ const Sidebar = ({children}) => {
         <div className="d-flex sidebar-height">
            <div style={{width: isOpen ? "250px" : "70px"}} onMouseEnter={toggle} onMouseLeave={closeToggle} className="sidebar-sidebar shadow">
                <div className="sidebar-top_section">
-                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ms-2">Mentor</h4>
+                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ml-2">Mentor</h4>
                    <div style={{marginLeft: isOpen ? "70px" : "10px"}} className="sidebar-bars">
                        { !isOpen ? <FaBars className='text-light '/> : <FaTimes className='text-light ' onClick={closeToggle}/>}
                    </div>

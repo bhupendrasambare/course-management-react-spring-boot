@@ -114,7 +114,6 @@ function Login() {
                 });
             }
         }   
-            console.log(err.response.data);
         });
     }
   return (

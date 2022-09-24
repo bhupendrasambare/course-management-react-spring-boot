@@ -9,7 +9,7 @@ import $ from 'jquery'
 
 import "../CSS/Popup.css"
 
-export default function CourseChapters() {
+export default function ManageChapters() {
     const mentor = useSelector((state) => state.mentorDetails.mentor);
 
     const {id} = useParams()
@@ -57,7 +57,6 @@ export default function CourseChapters() {
                     setTimeout(function(){
                         $("#data-table").DataTable(
                             {
-                                "pageLength": 7,
                                 bAutoWidth: false, 
                                 aoColumns : [
                                 { sWidth: '10%' },
@@ -67,7 +66,7 @@ export default function CourseChapters() {
                                 ]
                             }
                         );
-                    },100)
+                    },1)
                 }else{
                     toast.error('Something Went Wrong!', {
                         position: "top-right",
@@ -93,7 +92,7 @@ export default function CourseChapters() {
                     <div>
                         <h5 className='m-3'>Manage Chapters : {(course != null)?course.name :""}</h5>
                     </div>
-                    <div className=' ms-auto'>
+                    <div className=' ml-auto'>
                         <a>
                         <Popup 
                         trigger={
@@ -112,7 +111,7 @@ export default function CourseChapters() {
                 </div> 
                 <div className='mx-2 mb-3'>
                     <hr/>
-                    <div className='container'> 
+                    <div className=''> 
                         <table id="data-table" className="table is-striped">
                             <thead className='mt-3'>
                                 <tr>
@@ -132,7 +131,7 @@ export default function CourseChapters() {
                                             <td>
                                             <Popup 
                                             trigger={
-                                                <button className="btn btn-warning btn-sm me-2 my-1 px-4">
+                                                <button className="btn btn-warning btn-sm mr-2 my-1 px-4">
                                                     Edit 
                                                 </button>} modal>
                                                 {close => (<AddEditChapter chapter={result.id} course={id} close={close}/>)}

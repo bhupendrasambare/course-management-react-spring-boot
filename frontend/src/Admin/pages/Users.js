@@ -12,10 +12,16 @@ function Users() {
     useEffect(() =>{
         if(data == null){
             axios('http://localhost:8080/api/admin/get-users-by-role?auth=token '+admin.token+'&role=user').then((response) =>{
-                setDate(response.data.data);
-                setTimeout(function(){
-                    $("#data-table").DataTable();
-                },100)
+                $("#data-table").DataTable({
+                    data: response.data.data,
+                    columns: [
+                        { data: 'id' },
+                        { data: 'username' },
+                        { data: 'name' },
+                        { data: 'last' },
+                        { data: 'email' },
+                    ],
+                });
             });
         }
     })
@@ -23,7 +29,7 @@ function Users() {
   return (
     <>
         <div className='card pt-3 p-3 m-3 border-0 shadow'>
-            <div className='container'> 
+            <div className='m-2'> 
                 <h5 className='mb-3'>Users List</h5>
                 <table id="data-table" className="table table-hover">
                     <thead className='mt-3'>

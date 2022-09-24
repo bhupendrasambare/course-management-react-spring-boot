@@ -15,10 +15,10 @@ public interface TopicRepository extends JpaRepository<Topic,Long> {
     @Query("Select u from Topic u where u.id=:id")
     Optional<Topic> getTopicById(@Param("id") Long id);
 
-    @Query("Select u from Topic u where u.chapter.id=:id")
+    @Query("Select u from Topic u where u.chapter.id=:id Order by u.position ASC")
     List<Topic> getTopicByChapterId(@Param("id") Long id);
 
-    @Query("Select u from Topic u where u.chapter.courses.id=:id Order By u.chapter.id")
+    @Query("Select u from Topic u where u.chapter.courses.id=:id Order By u.chapter.id ASC,u.position ASC")
     List<Topic> getTopicByCourseId(@Param("id") Long id);
 
     @Query("Select u from Topic u where u.name Like CONCAT('%', :name ,'%')")

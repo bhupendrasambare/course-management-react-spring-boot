@@ -49,7 +49,7 @@ const Sidebar = ({children}) => {
         <div className="d-flex sidebar-height">
            <div style={{width: isOpen ? "250px" : "70px"}} onMouseEnter={toggle} onMouseLeave={closeToggle}  className="sidebar-sidebar shadow">
                <div className="sidebar-top_section">
-                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ms-2">Admin</h4>
+                   <h4 style={{display: isOpen ? "block" : "none"}} className="text-light ml-2">Admin</h4>
                    <div style={{marginLeft: isOpen ? "70px" : "10px"}} className="sidebar-bars">
                        { !isOpen ? <FaBars className='text-light '/> : <FaTimes className='text-light ' onClick={closeToggle}/>}
                    </div>
@@ -57,7 +57,7 @@ const Sidebar = ({children}) => {
                {
                    menuItem.map((item, index)=>(
                        <NavLink to={item.path} key={index} className="sidebar-link text-decoration-none">
-                           <div className="sidebar-icon px-2 py-1 rounded-pill shadow-lg fs-4">{item.icon}</div>
+                           <div className="sidebar-icon px-2 py-1 rounded-pill shadow-lg">{item.icon}</div>
                            <div style={{display: isOpen ? "block" : "none"}} className="sidebar-link_text pt-2">{item.name}</div>
                        </NavLink>
                    ))

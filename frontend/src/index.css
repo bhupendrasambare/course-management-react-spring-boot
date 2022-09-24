@@ -67,3 +67,6 @@ main{
 #data-table{
     margin-top: 20px;
 }
+.note-group-select-from-files {
+    display: none;
+  }

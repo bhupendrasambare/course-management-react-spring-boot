@@ -3,7 +3,6 @@ import "./PageNotFound.css"
 
 
 function PageNotFound(data) {
-  console.log(data.data)
   return (
     <>
           <div className='page-not-found-body'>

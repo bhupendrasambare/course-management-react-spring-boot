@@ -1,39 +1,19 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.bubble.css';
+import ReactSummernote from "react-summernote";
+import "react-summernote/dist/react-summernote.css"; // import styles
+import "bootstrap/dist/css/bootstrap.css";
 import "../CSS/Courses.css"
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+
 export const AddEditChapter = (props) => {
 
     const mentor = useSelector((state) => state.mentorDetails.mentor);
     const [chapter,setChapter] = useState(null);
     const [name,setName] = useState("");
     const [description,setDescription] = useState("");
-    const modules = {
-        toolbar: [
-          [{ 'font': [] }],
-          [{ 'size': ['small', false, 'large', 'huge'] }],
-          ['bold', 'italic', 'underline'],
-          [{'list': 'ordered'}, {'list': 'bullet'}],
-          [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }],
-          ['clean']
-        ]
-    };
-
-    const formats = [
-        'font',
-        'size',
-        'bold', 'italic', 'underline',
-        'list', 'bullet',
-        'align',
-        'color', 'background'
-      ];
-
 
     const submitForm = () =>{
 
@@ -132,7 +112,7 @@ export const AddEditChapter = (props) => {
             <div className="p-2 w-100">
                 <div className="d-flex">
                     <h5 >Edit Chapter</h5>
-                    <button className="ms-auto btn-sm btn btn-outline-danger" onClick={props.close}>
+                    <button className="ml-auto btn-sm btn btn-danger" onClick={props.close}>
                         &times;
                     </button>                  
                 </div>
@@ -144,11 +124,24 @@ export const AddEditChapter = (props) => {
                             <input value={name}  onChange={(e) =>setName(e.target.value)} id="name" type="text" className="form-control" placeholder="Enter Class name"></input></label>
                         </div>
                         <div className="col-sm-6"></div>
-                        <div className="col-sm-12 mb-4">
-                            <label for="description">Description
-                            <ReactQuill value={description} class="description-box w-100" theme="snow"  modules={modules} formats={formats} onChange={(e) =>setDescription(e)} /></label>
                         </div>
-                        <div className="col-sm-12 d-flex">
+                        
+                        <div className="mb-4">
+                            <label for="description">Description
+                            <ReactSummernote height={600} className="w-100" options={{
+                                height: 350,
+                                dialogsInBody: true,
+                                toolbar: [
+                                ["style", ["style"]],
+                                ["font", ["bold", "underline", "clear"]],
+                                ["fontname", ["fontname"]],
+                                ["para", ["ul", "ol", "paragraph"]],
+                                ["view", ["codeview"]]
+                                ]}} value={description} onChange={(e) =>setDescription(e)} /></label>
+                        </div>
+                        
+                        <div className="row">
+                        <div className="col-lg-12 d-flex">
                             <button className="ms-auto me-2 mt-2 btn-sm btn btn-success" onClick={submitForm}>
                                 Submit
                             </button>  

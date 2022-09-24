@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -30,5 +31,6 @@ public class Topic {
     private String description;
 
     @Column(name = "position")
+    @NotNull
     private int position;
 }

@@ -1,15 +1,9 @@
 package com.restapi.controller;
 
-import com.restapi.entity.Categories;
-import com.restapi.entity.Chapter;
-import com.restapi.entity.Courses;
-import com.restapi.entity.User;
+import com.restapi.entity.*;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.security.jwt.JwtUtils;
-import com.restapi.service.CategoriesService;
-import com.restapi.service.ChapterService;
-import com.restapi.service.CourseService;
-import com.restapi.service.FileUploadService;
+import com.restapi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -45,6 +39,9 @@ public class MentorController {
     @Autowired
     ChapterService chapterService;
 
+    @Autowired
+    TopicService topicService;
+
     @PreAuthorize("hasAnyAuthority('MENTOR')")
     @GetMapping("/login-user")
     public String userRole(HttpServletRequest request){
@@ -75,7 +72,8 @@ public class MentorController {
     @PreAuthorize("hasAnyAuthority('MENTOR')")
     @PostMapping("/add-edit-course")
     public ApiResponse<?> addEditCourse(HttpServletRequest request,
-                                        @RequestParam(name = "file",required = false)MultipartFile file) throws IOException {
+                                        @RequestParam(name = "file",required = false)MultipartFile file
+                                        ) throws IOException {
         String token = request.getParameter("auth");
         User user =  loginService.getUserFromJwtToken(token);
 
@@ -205,4 +203,55 @@ public class MentorController {
         chapterService.saveChapter(chapter);
         return new ApiResponse<>(HttpStatus.OK,"Chapter Saved",true,true);
     }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @PostMapping("/get-topics")
+    public ApiResponse<?> getTopics(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Topic> topics = topicService.getTopicByChapterId(id);
+        if(topics.size() >0){
+            if(topics.get(0).getChapter().getCourses().getMentor().getId() == user.getId()){
+                return new ApiResponse<Boolean>(HttpStatus.NOT_ACCEPTABLE,"Access Denied",false,false);
+            }
+        }
+        return new ApiResponse<List<Topic>>( HttpStatus.OK,"Topics",topics,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @PostMapping("/add-edit-topic")
+    public ApiResponse<?>  saveTopic(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        Chapter chapter = chapterService.getChapterById(id);
+        if(chapter == null || chapter.getCourses().getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Topic Not Found",false,false);
+        }
+        String topicId = request.getParameter("topic");
+        Topic topic = null;
+        if(topicId != null && topicId != ""){
+            topic = topicService.getTopicById(Long.valueOf(topicId));
+            if(topic == null){
+                return new ApiResponse<>(HttpStatus.OK,"Topic Not Found",false,true);
+            }
+        }else{
+            topic = new Topic();
+            List<Topic> topicList = topicService.getTopicByChapterId(chapter.getId());
+
+            topic.setPosition(topicList.size() + 1);
+        }
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+
+        topic.setName(name);
+        topic.setDescription(description);
+        topic.setChapter(chapter);
+        topicService.saveTopic(topic);
+        return new ApiResponse<>(HttpStatus.OK,"Chapter Saved",true,true);
+    }
+
+
 }
