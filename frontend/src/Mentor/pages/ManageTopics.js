@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { toast, ToastContainer } from 'react-toastify';
-import Popup from 'reactjs-popup';
+import $ from 'jquery'
 
 export default function ManageTopics() {
 
@@ -50,47 +50,31 @@ export default function ManageTopics() {
     },[]);
 
     useEffect(() =>{
-        axios({
-            url: window.backend+"/api/mentor/get-topics?auth=token "+mentor.token,
-            method:"POST",
-            params:{
-                id:id,
-            }
-        }).then((res) => { 
-            if(res.data.success){
-                setData(res.data.data);
-            }else{
-                toast.error('Something Went Wrong!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
-            }
-        }).catch((err) => {
-            toast.error('Something Went Wrong!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
+        if(data == null){
+            axios('http://localhost:8080/api/mentor/get-topics?auth=token '+mentor.token+'&id='+id).then((response) =>{
+                    setData(response.data.data)
+                    setTimeout(function(){
+                    $("#data-table").DataTable();
+                    });
             });
-            navigate("/mentor/courses");
-        });
-
-    },[]);
-
-
-    useEffect(() =>{
-        
+        }
 
     });
 
+    const moveup = (data) =>{
+        console.log(data)
+    }
+
+    const movedown = (data) =>{
+        console.log(data)
+    }
+
+    const deleteTopic = (data) =>{
+        console.log(data)
+    }
+
+
+var count = 0;
     return (
         <>
             <ToastContainer/>
@@ -115,19 +99,43 @@ export default function ManageTopics() {
                     </div> 
                     <div className='mx-2 mb-3'>
                         <hr/>
-                        <div className=''> 
-                            <table id="data-table" className="table is-striped">
+                        <div className='table-responsive'>
+
+                            <table id="data-table" className="table thead-dark">
                                 <thead className='mt-3'>
                                     <tr>
-                                        <th>*</th>
-                                        <th>Name</th>
-                                        <th>Topics</th>
-                                        <th>Media</th>
-                                        <th>Action</th>
+                                        <th scope="col" className='max-50'>*</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col" className='max-150'>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                {(data != null)?data.map((result) =>{
+                                    return (
+                                        <tr>
+                                            <td>{++count}</td>
+                                            <td>{result.name}</td>
+                                            <td className='max-150'>
+                                            <div class="dropdown">
+                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <div class="dropdown-menu">
+
+                                                        <a class="dropdown-item moveup"  onClick={() =>moveup(result.id)}><i class="fa fa-angle-up text-primary" aria-hidden="true"></i>&ensp; Move Up</a>
+                                                        
+                                                        <a class="dropdown-item" onClick={() =>movedown(result.id)}><i class="fa fa-angle-down text-primary" aria-hidden="true" ></i>&ensp; Move Dowm</a>
+                                                        
+                                                        <a class="dropdown-item" href={'../add-edit-topic/'+id+'?topic='+result.id}><i class="fa fa-pencil text-warning" aria-hidden="true"></i>&ensp; Edit</a>
+                                                        
+                                                        <a class="dropdown-item" onClick={() =>deleteTopic(result.id)}><i class="fa fa-ban text-danger" aria-hidden="true" ></i>&ensp; Delete</a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                }):""}
                                 </tbody>
                             </table>
                         </div>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -205,14 +206,14 @@ public class MentorController {
     }
 
     @PreAuthorize("hasAnyAuthority('MENTOR')")
-    @PostMapping("/get-topics")
+    @GetMapping("/get-topics")
     public ApiResponse<?> getTopics(HttpServletRequest request,@RequestParam("id")Long id){
         String token = request.getParameter("auth");
         User user =  loginService.getUserFromJwtToken(token);
 
         List<Topic> topics = topicService.getTopicByChapterId(id);
         if(topics.size() >0){
-            if(topics.get(0).getChapter().getCourses().getMentor().getId() == user.getId()){
+            if(!Objects.equals(topics.get(0).getChapter().getCourses().getMentor().getId(), user.getId())){
                 return new ApiResponse<Boolean>(HttpStatus.NOT_ACCEPTABLE,"Access Denied",false,false);
             }
         }
@@ -253,5 +254,18 @@ public class MentorController {
         return new ApiResponse<>(HttpStatus.OK,"Chapter Saved",true,true);
     }
 
+
+    @PreAuthorize("hasAnyAuthority('MENTOR')")
+    @GetMapping("/get-topic-by-id")
+    public ApiResponse<?> getTopicById(HttpServletRequest request,@RequestParam("id")Long id){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        Topic result= topicService.getTopicById(id);
+        if(result.getChapter().getCourses().getMentor().getId() != user.getId()){
+            return new ApiResponse<>(HttpStatus.OK,"Topic Not Found",false,false);
+        }
+        return new ApiResponse<>(HttpStatus.OK,"Topic Details",result,true);
+    }
 
 }

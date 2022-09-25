@@ -90,16 +90,22 @@ function AddEditCourse() {
             data:formData,
         }).then((res) => { 
             if(res.data.success){
-                toast.success('Course Created', {
+                var massage = "Course Created";
+                if(id != null && id != null){
+                    massage = "Course Edited";
+                }
+                toast.success(massage, {
                     position: "top-right",
-                    autoClose: 2000,
+                    autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
                 }); 
-                navigate(-1)
+                setTimeout(function(){
+                    navigate(-1)
+                },2200)
             }else{
                 toast.error(res.data.message, {
                     position: "top-right",

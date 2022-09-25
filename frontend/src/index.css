@@ -15,6 +15,14 @@
 main{
     width: 100%;
 }
+a{
+    text-decoration: none;
+    color: #000;
+    
+}
+a:hover{
+    text-decoration:none;
+}
 .sidebar-sidebar{
     background-color: #000;
     width: 200px;
@@ -69,4 +77,10 @@ main{
 }
 .note-group-select-from-files {
     display: none;
+  }
+  .max-150{
+    max-width: 150px;
+  }
+  .max-50{
+    max-width: 50px;
   }

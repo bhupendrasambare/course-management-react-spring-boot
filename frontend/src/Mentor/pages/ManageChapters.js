@@ -55,17 +55,7 @@ export default function ManageChapters() {
                 if(response.data.success){
                     setDate(response.data.data);
                     setTimeout(function(){
-                        $("#data-table").DataTable(
-                            {
-                                bAutoWidth: false, 
-                                aoColumns : [
-                                { sWidth: '10%' },
-                                { sWidth: '50%' },
-                                { sWidth: '20%' },
-                                { sWidth: '20%' },
-                                ]
-                            }
-                        );
+                        $("#data-table").DataTable();
                     },1)
                 }else{
                     toast.error('Something Went Wrong!', {
@@ -111,14 +101,14 @@ export default function ManageChapters() {
                 </div> 
                 <div className='mx-2 mb-3'>
                     <hr/>
-                    <div className=''> 
+                    <div className='table-responsive'> 
                         <table id="data-table" className="table is-striped">
                             <thead className='mt-3'>
                                 <tr>
-                                    <th>*</th>
+                                    <th className='max-50'>*</th>
                                     <th>Name</th>
-                                    <th>Topics</th>
-                                    <th>Action</th>
+                                    <th className='max-50'>Topics</th>
+                                    <th className='max-150'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,8 +117,8 @@ export default function ManageChapters() {
                                         <tr>
                                             <td>{++count}</td>
                                             <td>{result.name}</td>
-                                            <td><a className='text-decoration-none text-primary' href={'../manage-topics/'+result.id}><i class="fa fa-list-alt" aria-hidden="true"></i>&ensp;Manage Topics</a></td>
-                                            <td>
+                                            <td><a className='text-decoration-none text-primary' href={'../manage-topics/'+result.id}><i class="fa fa-book text-warning" aria-hidden="true"></i>&ensp;Topics</a></td>
+                                            <td className='max-150'>
                                             <Popup 
                                             trigger={
                                                 <button className="btn btn-warning btn-sm mr-2 my-1 px-4">

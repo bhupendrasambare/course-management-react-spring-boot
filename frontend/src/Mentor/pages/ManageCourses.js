@@ -61,12 +61,14 @@ function ManageCourses() {
                                         <img src={window.backend+"/api/public/resources?folder=courses&file="+course.image}/>
                                         <div className="card-body">
                                             <h5 className="card-title">{course.name}</h5>
-                                            <p className="card-text ">
-                                                Duration : {course.hour} : {course.minutes}
-                                            </p>
-                                            <p className="card-text">
-                                                Price : {course.price}
-                                            </p>
+                                            <div className='d-flex justify-content-between mb-2'>
+                                                <div className="card-text ">
+                                                    Duration : {course.hour} : {course.minutes}
+                                                </div>
+                                                <div className="card-text">
+                                                    Price : {course.price}
+                                                </div>
+                                            </div>
                                             <button className='btn rounded-pill border shadow disabled btn-sm mb-2'>{course.categories.name}</button>
                                             <div className='d-flex'>
                                                 <a target="_blank" href={"/course/"+course.id} className="me-1 btn-sm btn btn-success px-3">View</a>

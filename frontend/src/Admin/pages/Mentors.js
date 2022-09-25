@@ -19,13 +19,7 @@ function Mentors() {
                             { data: 'username' },
                             { data: 'name' },
                             { data: 'last' },
-                            { render:function(row){
-                                return (
-                                    <>
-                                    
-                                    </>
-                                )
-                            } },
+                            { data: "email"},
                         ],
                     });
             });
@@ -37,18 +31,21 @@ function Mentors() {
         <div className='card pt-3 p-3 m-3 border-0 shadow'>
             <div className='m-2'> 
                 <h5 className='mb-3'>Mentors List</h5>
-                <table id="data-table" className="table table-hover">
+                <div className='table-responsive'>
+
+                <table id="data-table" className="table thead-dark">
                     <thead className='mt-3'>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Last</th>
-                            <th>Email</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Email</th>
                         </tr>
                     </thead>
                     
                 </table>
+                </div>
             </div>
         </div>
     </>

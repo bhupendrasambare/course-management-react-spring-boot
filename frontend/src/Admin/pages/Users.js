@@ -31,30 +31,19 @@ function Users() {
         <div className='card pt-3 p-3 m-3 border-0 shadow'>
             <div className='m-2'> 
                 <h5 className='mb-3'>Users List</h5>
-                <table id="data-table" className="table table-hover">
-                    <thead className='mt-3'>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Last</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {(data != null)?data.map((result) =>{
-                            return (
-                                <tr>
-                                    <td>{result.id}</td>
-                                    <td>{result.username}</td>
-                                    <td>{result.name}</td>
-                                    <td>{result.last}</td>
-                                    <td>{result.email}</td>
-                                </tr>
-                            )
-                        }):<tr><td>No Data Found</td></tr>}
-                    </tbody>
-                </table>
+                <div className='table-responsive'>
+                    <table id="data-table" className="table ">
+                        <thead className='mt-3'>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Last</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </>
