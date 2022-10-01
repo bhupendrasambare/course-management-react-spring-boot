@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,600;0,700;0,800;0,900;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 *{
     margin: 0;
@@ -83,4 +84,84 @@ a:hover{
   }
   .max-50{
     max-width: 50px;
+  }
+  .carousel{
+margin-top: -60px;
+  }
+  .family-normal{
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  .bg-image-1{
+    background: url(https://images.unsplash.com/photo-1663305411753-4c305e177ff3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=1&auto=format%2Ccompress&fit=crop&w=1200&h=600);
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 600px;
+  }
+
+  .bg-image-hexagon-white{
+    background: url('/public/bg-img/hexagon-white.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 70px);
+  }
+
+  .bg-image-white-blue{
+    background: url('/public/bg-img/illustration-white-blue.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-image-white{
+    background: url('/public/bg-img/illustration-white.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 70px);
+  }
+
+  .bg-image-world-blue{
+    background: url('/public/bg-img/world-white.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-footer{
+    background: url('/public/bg-img/bg-footer.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .index-card-box{
+    max-width: 500px;
+  }
+  .cursol-pointer{
+    cursor: pointer;
+  }
+  .min-width-400{
+    min-width: 200px;
+  }  
+  .min-width-600{
+    min-width: 400px;
+  }
+  .fw-300{
+    font-weight: 300;
+  }
+  .fw-400{
+    font-weight: 400;
+  }
+  .fw-500{
+    font-weight: 500;
+  }
+  .fw-600{
+    font-weight: 600;
+  }
+  .fw-700{
+    font-weight: 700;
+  }
+  .fw-800{
+    font-weight: 800;
   }

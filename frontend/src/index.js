@@ -25,6 +25,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 
+import 'owl.carousel/dist/assets/owl.carousel.css';  
+import 'owl.carousel/dist/assets/owl.theme.default.css'; 
 
 import store,{persistor} from "./Redux/Store"
 import {PersistGate}  from "redux-persist/integration/react"
