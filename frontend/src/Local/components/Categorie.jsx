@@ -12,9 +12,7 @@ const Categorie = () => {
         margin: 50,
         responsiveClass: true,
         nav: true,
-        loop:true,
         dots: true,
-        autoplay: true,
         smartSpeed: 1000,
         responsive: {
             0: {
@@ -62,7 +60,11 @@ const Categorie = () => {
     // },[data])   
   return (
     <div className='mx-5 card rounded-lg shadow p-3 mt-5 mb-5'>
-        <h5 className='family-normal mb-3'>Categories</h5><hr className='my-0'/>
+        <div className='d-flex justify-content-between'>
+            <h5 className='family-normal mb-3'>Categories</h5>
+            <a href="/categories" className="text-decoration-none text-primary underline ml-3">All Categories</a>
+        </div>
+        <hr className='my-0'/>
         { (catLoding)?
             <OwlCarousel  className="owl-theme"  {...options}>  
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
@@ -75,10 +77,9 @@ const Categorie = () => {
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
             </OwlCarousel>:
             <>
-                <OwlCarousel  className="owl-theme"  {...options}> 
-                    {(data != [])?data[0].map((r)=>
+                <OwlCarousel  className="owl-theme" autoplay loop {...options}> 
+                    {(data !== [])?data[0].map((r)=>
                     { 
-                        {
                             return(
                             <a className='text-decoration-none rounded-lg m-3 cursol-pointer' href={"/categories/"+r.id}>
                                 <img src={window.backend+"/api/public/resources?folder=categories&file="+r.image} width={200} height={200} className=" rounded-lg"/>
@@ -86,13 +87,11 @@ const Categorie = () => {
                             </a>
                                 )
                             
-                        }
                     }):<></>} 
                 </OwlCarousel>
                 
             </>
         }
-        
     </div>
   )
 }

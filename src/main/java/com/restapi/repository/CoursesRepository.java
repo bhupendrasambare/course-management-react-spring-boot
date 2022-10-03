@@ -27,6 +27,9 @@ public interface CoursesRepository extends JpaRepository<Courses,Long> {
     @Query("Select u from Courses u where u.name Like CONCAT('%', :name ,'%')")
     List<Courses> getCoursesByName(@Param("name")String name);
 
+    @Query("Select u from Courses u where u.categories.id =:id")
+    List<Courses> getCoursesByCategoryId(@Param("id")Long id);
+
     @Query("Select u from Courses u where u.name Like CONCAT('%', :name ,'%') AND (u.price< :max AND u.price> :min) AND  u.categories.name Like CONCAT('%', :categories ,'%')")
     List<Courses> getCoursesByFilter(@Param("name")String name,
                                      @Param("categories")String categories,

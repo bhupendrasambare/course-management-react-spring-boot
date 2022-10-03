@@ -121,12 +121,28 @@ margin-top: -60px;
     background-size: cover;
     min-height: calc(100vh - 70px);
   }
-
   .bg-image-world-blue{
     background: url('/public/bg-img/world-white.jpeg');
     background-color: #fff;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: right;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-random-1{
+    background: url('/public/bg-img/image-random-1.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-random-2{
+    background: url('/public/bg-img/image-random-2.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
     min-height: calc(100vh - 70px);
   }
   .bg-footer{
@@ -135,6 +151,7 @@ margin-top: -60px;
     background-repeat: no-repeat;
     background-size: cover;
   }
+
   .index-card-box{
     max-width: 500px;
   }
@@ -164,4 +181,25 @@ margin-top: -60px;
   }
   .fw-800{
     font-weight: 800;
+  }
+  .width-max-100{
+    max-width: 100px!important;
+  }
+  .width-max-200{
+    max-width: 200px!important;
+  }
+  .width-max-300{
+    max-width: 300px!important;
+  }
+  .width-max-400{
+    max-width: 400px!important;
+  }
+  .width-max-500{
+    max-width: 500px!important;
+  }
+  .width-max-600{
+    max-width: 600px!important;
+  }
+  .width-max-700{
+    max-width: 700px!important;
   }
