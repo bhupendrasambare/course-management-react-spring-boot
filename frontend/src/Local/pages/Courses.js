@@ -3,7 +3,7 @@ import { cat } from 'fontawesome';
 import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 
-const Cources = () => {
+const Courses = () => {
 
     const [data,setData] = useState([]);
     const [courses,setCourses] = useState([]);
@@ -110,14 +110,16 @@ const Cources = () => {
                         {
                             data[0].map((r)=>{
                                 return(
-                                    <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer shadow' href={"/cources/"+r.id}>
-                                        <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} width={300} height={180} className=" rounded-lg"/>
+                                    <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer  course-card flex-fill card m-2'>
+                                        <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} height={200} className=" rounded-top-lg"/>
 
-                                        <div className='px-2 py-3 bg-light fw-600'>
-                                            <div className='mt-1 family-normal text-decoration-none'>{r.name}</div>
-                                            <small>{r.mentor}</small>
-                                            <h6 className='fw-400 text-secondary'>{r.hour}Hr {r.minutes}Min</h6>
-                                            <div className='text-success mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>
+                                        <div className='px-2 py-3 bg-light fw-600 h-100 d-flex flex-column'>
+                                            <a href={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none'>{r.name}</a>
+                                            <a target="_blank" href={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></a>
+                                            <div className='mt-auto d-flex justify-content-between'>
+                                                <h6 className='fw-400 text-secondary'>{r.hour}Hr {r.minutes}Min</h6>
+                                                <div className='text-success mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>
+                                            </div>
                                         </div>
                                     </a>
                                 )
@@ -133,4 +135,4 @@ const Cources = () => {
   )
 }
 
-export default Cources
+export default Courses

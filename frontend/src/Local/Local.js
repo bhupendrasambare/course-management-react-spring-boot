@@ -5,19 +5,23 @@ import Footer from './components/Footer';
 import Navbar from "./components/Navbar"
 import Categories from './pages/Categories';
 import Category from './pages/Category';
-import Cources from './pages/Cources';
+import Courses from './pages/Courses';
+import Course from './pages/Course';
 import Home from "./pages/Home"
 
 function Local() {
 return (
     <>
+        <Navbar/>
             <Routes>
-                <Route path="/" element={<><Navbar/><Home/><Footer/></>}/>
-                <Route path="/categories" element={<><Navbar/><Categories/><Footer/></>}/>
-                <Route path="/categories/:id" element={<><Navbar/><Category/><Footer/></>}/>
-                <Route path="/cources" element={<><Navbar/><Cources/><Footer/></>}/>
+                <Route path="/" element={<><Home/></>}/>
+                <Route path="/categories" element={<><Categories/></>}/>
+                <Route path="/categories/:id" element={<><Category/></>}/>
+                <Route path="/courses" element={<><Courses/></>}/>
+                <Route path="/courses/:id" element={<><Course/></>}/>
                 <Route path="*" element={<PageNotFound data="/"/>} />
             </Routes>
+        <Footer/>
     </>
 
 )

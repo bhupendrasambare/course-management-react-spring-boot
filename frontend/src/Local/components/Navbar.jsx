@@ -20,7 +20,7 @@ function Navbar() {
                             <a class="nav-link" href="/categories">Categories <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/cources">Cources <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/courses">Courses <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="/blog">Blogs <span class="sr-only">(current)</span></a>

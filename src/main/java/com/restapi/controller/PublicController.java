@@ -2,10 +2,14 @@ package com.restapi.controller;
 
 import com.restapi.entity.Categories;
 import com.restapi.entity.Courses;
+import com.restapi.entity.Topic;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.playload.response.CourseResponse;
+import com.restapi.playload.response.PublicChapterResponse;
+import com.restapi.playload.response.PublicGetCourseByIdResponse;
 import com.restapi.service.CategoriesService;
 import com.restapi.service.CourseService;
+import com.restapi.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -23,6 +27,7 @@ import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
@@ -37,6 +42,9 @@ public class PublicController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    TopicService topicService;
 
     @GetMapping("/get-categories")
     @ResponseBody
@@ -66,7 +74,7 @@ public class PublicController {
         return new ApiResponse<Categories>(HttpStatus.OK,"Category Details",category,true);
     }
 
-    @GetMapping("/get-course-by-category")
+    @GetMapping("/get-courses-by-category")
     @ResponseBody
     public ApiResponse<?> getCourseByCategory(HttpServletRequest request){
         String id = request.getParameter("id");
@@ -85,6 +93,51 @@ public class PublicController {
         return new ApiResponse<>(HttpStatus.OK,"All Courses",result,true);
     }
 
+    @GetMapping("/get-course-by-id")
+    @ResponseBody
+    public ApiResponse<?> getCourseById(HttpServletRequest request){
+        String id = request.getParameter("id");
+        if(id == null || id.equals("")){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Invalid Id",null,false);
+        }
+
+        Courses courses = courseService.getCourseById(Long.valueOf(id));
+        if(courses == null){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Invalid Id",null,false);
+        }
+
+        CourseResponse result = new CourseResponse(courses);
+
+        List<PublicChapterResponse> chapterTopics = new ArrayList<>();
+        List<Topic> topics = topicService.getTopicByCourseId(result.getId());
+        List<Long> allChapters = new ArrayList<Long>();
+        for(Topic a:topics){
+            if(!allChapters.contains(a.getChapter().getId())){
+                allChapters.add(a.getChapter().getId());
+            }
+        }
+        for(int i=0;i<allChapters.size();i++){
+            PublicChapterResponse temp = new PublicChapterResponse();
+            List<String> topicsString = new ArrayList<>();
+            String chapterName = "";
+            for(Topic a:topics){
+                if(a.getChapter().getId() == allChapters.get(i)) {
+                    chapterName = a.getChapter().getName();
+                    topicsString.add(a.getName());
+                }
+            }
+            temp.setTopics(topicsString);
+            temp.setChapter(chapterName);
+            chapterTopics.add(temp);
+        }
+
+        PublicGetCourseByIdResponse response = new PublicGetCourseByIdResponse();
+        response.setCourses(result);
+        response.setChapterTopics(chapterTopics);
+
+        return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+    }
+
     @GetMapping("/resources")
     public void getFileBytes(HttpServletRequest request, HttpServletResponse response) throws Exception{
         String folder = request.getParameter("folder");
@@ -94,8 +147,6 @@ public class PublicController {
         }
         String filepath = resourceDir + "/"+ folder + "/" + file;
         File responseFile = null;
-
-        System.out.println("3 "+filepath);
 
         responseFile = new File(filepath);
 

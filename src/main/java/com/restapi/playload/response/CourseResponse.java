@@ -33,7 +33,11 @@ public class CourseResponse {
 
     private String mentor;
 
+    private String mentorName;
+
     private Long mentorId;
+
+    private Long categoryId;
 
     public CourseResponse(Courses courses){
         this.id = courses.getId();
@@ -45,6 +49,8 @@ public class CourseResponse {
         this.price = courses.getPrice();
         this.category = courses.getCategories().getName();
         this.mentor = courses.getMentor().getName() + " " + courses.getMentor().getLast();
+        this.mentorName = courses.getMentor().getUsername();
         this.mentorId = courses.getMentor().getId();
+        this.categoryId = courses.getCategories().getId();
     }
 }

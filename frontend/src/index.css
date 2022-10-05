@@ -112,6 +112,7 @@ margin-top: -60px;
     background-color: #fff;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: left;
     min-height: calc(100vh - 70px);
   }
   .bg-image-white{
@@ -139,6 +140,30 @@ margin-top: -60px;
   }
   .bg-random-2{
     background: url('/public/bg-img/image-random-2.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-white-1{
+    background: url('/public/bg-img/white-bg-1.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-white-2{
+    background: url('/public/bg-img/white-bg-2.jpeg');
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    min-height: calc(100vh - 70px);
+  }
+  .bg-white-3{
+    background: url('/public/bg-img/white-bg-3.jpeg');
     background-color: #fff;
     background-repeat: no-repeat;
     background-size: cover;
@@ -202,4 +227,31 @@ margin-top: -60px;
   }
   .width-max-700{
     max-width: 700px!important;
+  }
+  .bg-light-hover::hover{
+    background-color: #fff;
+  }
+  .h-45{
+    height: 45px;
+  }
+  .fs-e-sm{
+    font-size: 12px;
+  }
+  .fs-sm{
+    font-size: 14px;
+  }
+  .fs-1{
+    font-size: 16px;
+  }
+  .fs-2{
+    font-size: 18px;
+  }
+  .fs-3{
+    font-size: 20px;
+  }
+  .fs-4{
+    font-size: 22px;
+  }
+  .fs-5{
+    font-size: 24px;
   }

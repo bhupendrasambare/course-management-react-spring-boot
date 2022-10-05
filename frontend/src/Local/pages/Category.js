@@ -2,7 +2,7 @@ import axios from 'axios';
 import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import {  useParams } from 'react-router';
-import OwlCources from "../components/OwlCources"
+import OwlCourses from "../components/OwlCourses"
 const Category = () => {
 
     const [categoryLoding,setCategoryLoding] = useState(true);
@@ -51,7 +51,7 @@ const Category = () => {
             <div>
             </div>
         </div>
-        <OwlCources id={id} name={category?.name} />
+        <OwlCourses id={id} name={category?.name} />
     </div>
   )
 }

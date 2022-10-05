@@ -25,7 +25,7 @@ public class TopicService {
     }
 
     public List<Topic> getTopicByCourseId(Long id){
-        return topicRepository.getTopicByChapterId(id);
+        return topicRepository.getTopicByCourseId(id);
     }
 
     public List<Topic> getTopicByName(String name){

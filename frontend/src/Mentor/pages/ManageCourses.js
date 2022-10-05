@@ -71,7 +71,7 @@ function ManageCourses() {
                                             </div>
                                             <button className='btn rounded-pill border shadow disabled btn-sm mb-2'>{course.categories.name}</button>
                                             <div className='d-flex'>
-                                                <a target="_blank" href={"/course/"+course.id} className="me-1 btn-sm btn btn-success px-3">View</a>
+                                                <a target="_blank" href={"/courses/"+course.id} className="me-1 btn-sm btn btn-success px-3">View</a>
                                                 <a href={"/mentor/add-course?id="+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Edit</a>
                                                 <a href={"/mentor/course/chapters/"+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Chapters</a>
                                             </div>

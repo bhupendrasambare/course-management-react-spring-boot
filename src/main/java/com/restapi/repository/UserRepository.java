@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    @Query("Select u from User u where u.username LIKE :username OR u.email LIKE :username")
+    Optional<User> findByUsername(@Param("username") String username);
 
     Boolean existsByUsername(String username);
 

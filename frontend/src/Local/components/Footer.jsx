@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className='family-normal col-md-3 min-width-200'>
                     <a href='/' className='text-decoration-none text-light fw-500'>Home</a><br/>
                     <a href='/categories' className='text-decoration-none text-light fw-500'>Categories</a><br/>
-                    <a href='/cources' className='text-decoration-none text-light fw-500'>Cources</a><br/>
+                    <a href='/coursces' className='text-decoration-none text-light fw-500'>Courses</a><br/>
                     <a href='/blogs' className='text-decoration-none text-light fw-500'>Blogs</a><br/>
                 </div>
                 <div className='family-normal col-md-3  min-width-200 '>

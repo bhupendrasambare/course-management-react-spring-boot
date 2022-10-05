@@ -32,7 +32,7 @@ export const AddEditChapter = (props) => {
         formData.append("name",name);
         formData.append("description",description);
         formData.append("id",props.course);
-        if(props.chapter != null || props.chapter != ""){
+        if(props.chapter != null && props.chapter != ""){
             formData.append("chapter",props.chapter);
         }
         axios({

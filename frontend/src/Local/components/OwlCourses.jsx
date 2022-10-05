@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import OwlCarousel from 'react-owl-carousel'; 
 import axios from 'axios';
 
-const OwlCources = (props) => {
+const OwlCourses = (props) => {
 
     const [data,setData] = useState([]);
     const [catLoding,setCatLoding] = useState(true);
@@ -44,7 +44,7 @@ const OwlCources = (props) => {
         if(props.id === null || props.id === undefined || props.id === "-1"){
             url = window.backend+"/api/public/get-courses"
         }else{
-            url = window.backend+"/api/public/get-course-by-category?id="+props?.id
+            url = window.backend+"/api/public/get-courses-by-category?id="+props?.id
         }
         axios({
             url:url,
@@ -69,10 +69,10 @@ const OwlCources = (props) => {
         {(props.id === null || props.id === undefined || props.id === "-1")?
         <>
             <div className='d-flex justify-content-between'>
-                <h5 className='family-normal mb-3'>Cources</h5>
-                <a href="/cources" className="text-decoration-none text-primary underline ml-3">All Cources</a>
+                <h5 className='family-normal mb-3'>Courses</h5>
+                <a href="/courses" className="text-decoration-none text-primary underline ml-3">All Courses</a>
             </div>
-        </>:<>Cources related to {props?.name}</>}
+        </>:<>Courses related to {props?.name}</>}
         </h5><hr className='my-0'/>
         { (catLoding)?
             <OwlCarousel  className="owl-theme"  {...options}>  
@@ -90,11 +90,16 @@ const OwlCources = (props) => {
                     {(data !== [] && data[0].length > 0)?data[0].map((r)=>
                     { 
                             return(
-                            <a className='text-decoration-none rounded-lg m-3 cursol-pointer shadow' href={"/cources/"+r.id}>
-                                <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} width={200} height={150} className=" rounded-lg"/>
-                                <div className='d-flex justify-content-between'>
-                                    <div className='mt-1 family-normal text-decoration-none'>{r.name}</div>
-                                    <div className='mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>
+                                <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer course-card flex-fill m-2'>
+                                <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} className=" rounded-top-lg"/>
+
+                                <div className='px-2 py-3 bg-light fw-600 h-100 d-flex flex-column'>
+                                    <a href={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none h-45'>{r.name}</a>
+                                    <a href={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></a>
+                                    <div className='mt-auto d-flex justify-content-between'>
+                                        <h6 className='fw-400 text-secondary'>{r.hour}Hr {r.minutes}Min</h6>
+                                        <div className='text-success mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>
+                                    </div>
                                 </div>
                             </a>
                                 )
@@ -117,4 +122,4 @@ const OwlCources = (props) => {
 
 }
 
-export default OwlCources
+export default OwlCourses
