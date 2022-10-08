@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { toast, ToastContainer } from 'react-toastify';
 import $ from 'jquery'
+import { NavLink } from 'react-router-dom';
 
 export default function ManageTopics() {
 
@@ -85,11 +86,11 @@ var count = 0;
                             <h5 className='m-3'>Manage Topics : {(chapter != null)?chapter.name :""}</h5>
                         </div>
                         <div className=' ml-auto'>
-                            <a href={"../add-edit-topic/"+id}> 
+                            <NavLink to={"/mentor/course/add-edit-topic/"+id}> 
                                 <button className="button btn btn-sm btn-success">
                                     Add Topics 
                                 </button>
-                            </a>
+                            </NavLink>
                             <a onClick={() =>navigate(-1)}>
                                 <button className="button m-3 btn btn-sm btn-danger">
                                     Cancel 
@@ -126,7 +127,7 @@ var count = 0;
                                                         
                                                         <a class="dropdown-item" onClick={() =>movedown(result.id)}><i class="fa fa-angle-down text-primary" aria-hidden="true" ></i>&ensp; Move Dowm</a>
                                                         
-                                                        <a class="dropdown-item" href={'../add-edit-topic/'+id+'?topic='+result.id}><i class="fa fa-pencil text-warning" aria-hidden="true"></i>&ensp; Edit</a>
+                                                        <a class="dropdown-item"><NavLink to={'/mentor/course/add-edit-topic/'+id+'?topic='+result.id}><i class="fa fa-pencil text-warning" aria-hidden="true"></i>&ensp; Edit</NavLink></a>
                                                         
                                                         <a class="dropdown-item" onClick={() =>deleteTopic(result.id)}><i class="fa fa-ban text-danger" aria-hidden="true" ></i>&ensp; Delete</a>
                                                         

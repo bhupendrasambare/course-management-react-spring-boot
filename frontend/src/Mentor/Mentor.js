@@ -10,6 +10,7 @@ import ManageChapters from "./pages/ManageChapters"
 import ManageCourses from "./pages/ManageCourses"
 import ManageTopics from "./pages/ManageTopics"
 import AddEditTopic from './pages/AddEditTopic';
+import ManageAccount from './pages/ManageAccount';
 function Mentor() {
 return (
         <>
@@ -17,6 +18,7 @@ return (
             {/* <Route path="/login" element={<>Mentor<Login/></>}/> */}
             <Route path="/login" element={<Login/>}/>
             <Route path="/dashboard" element={<><Auth><Sidebar><Dashboard/></Sidebar></Auth></>}/>
+            <Route path="/account" element={<><Auth><Sidebar><ManageAccount/></Sidebar></Auth></>}/>
             <Route path="/courses" element={<><Auth><Sidebar><ManageCourses/></Sidebar></Auth></>}/>
             <Route path="/add-course" element={<><Auth><Sidebar><AddEditCourse/></Sidebar></Auth></>}/>
             <Route path="/course/chapters/:id" element={<><Auth><Sidebar><ManageChapters/></Sidebar></Auth></>}/>

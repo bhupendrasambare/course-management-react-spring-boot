@@ -8,6 +8,7 @@ import { AddEditChapter } from '../components/AddEditChapter';
 import $ from 'jquery'
 
 import "../CSS/Popup.css"
+import { NavLink } from 'react-router-dom';
 
 export default function ManageChapters() {
     const mentor = useSelector((state) => state.mentorDetails.mentor);
@@ -117,7 +118,7 @@ export default function ManageChapters() {
                                         <tr>
                                             <td>{++count}</td>
                                             <td>{result.name}</td>
-                                            <td><a className='text-decoration-none text-primary' href={'../manage-topics/'+result.id}><i class="fa fa-book text-warning" aria-hidden="true"></i>&ensp;Topics</a></td>
+                                            <td><NavLink className='text-decoration-none text-primary' to={'/mentor/course/manage-topics/'+result.id}><i class="fa fa-book text-warning" aria-hidden="true"></i>&ensp;Topics</NavLink></td>
                                             <td className='max-150'>
                                             <Popup 
                                             trigger={

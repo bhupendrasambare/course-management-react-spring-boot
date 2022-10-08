@@ -2,6 +2,7 @@ import axios from 'axios';
 import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import {  useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import OwlCourses from "../components/OwlCourses"
 const Category = () => {
 
@@ -26,7 +27,7 @@ const Category = () => {
 
   return (
     <div className='bg-image-world-blue py-5'>
-        <a href='/categories' className='px-4 text-decoration-none text-primary underline ml-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i>All Categories</a>
+        <NavLink to='/categories' className='px-4 text-decoration-none text-primary underline ml-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i>All Categories</NavLink>
         <div className='px-4 mt-5 d-flex flex-wrap justify-content-start'>
             {(categoryLoding)?<>
                 <div>

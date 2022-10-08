@@ -13,6 +13,10 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    public User getUserByUserName(String username){
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
     public List<User> getUsersByRole(ERole role){
         return userRepository.findByRoles_Name(role);
     }

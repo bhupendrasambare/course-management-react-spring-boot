@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import OwlCarousel from 'react-owl-carousel'; 
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 const OwlCourses = (props) => {
 
@@ -39,7 +40,6 @@ const OwlCourses = (props) => {
     };
 
     useEffect(()=>{
-        console.log(props?.id)
         var url = "";
         if(props.id === null || props.id === undefined || props.id === "-1"){
             url = window.backend+"/api/public/get-courses"
@@ -70,7 +70,7 @@ const OwlCourses = (props) => {
         <>
             <div className='d-flex justify-content-between'>
                 <h5 className='family-normal mb-3'>Courses</h5>
-                <a href="/courses" className="text-decoration-none text-primary underline ml-3">All Courses</a>
+                <NavLink to="/courses" className="text-decoration-none text-primary underline ml-3">All Courses</NavLink>
             </div>
         </>:<>Courses related to {props?.name}</>}
         </h5><hr className='my-0'/>
@@ -94,8 +94,8 @@ const OwlCourses = (props) => {
                                 <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} className=" rounded-top-lg"/>
 
                                 <div className='px-2 py-3 bg-light fw-600 h-100 d-flex flex-column'>
-                                    <a href={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none h-45'>{r.name}</a>
-                                    <a href={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></a>
+                                    <NavLink to={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none h-45'>{r.name}</NavLink>
+                                    <NavLink to={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></NavLink>
                                     <div className='mt-auto d-flex justify-content-between'>
                                         <h6 className='fw-400 text-secondary'>{r.hour}Hr {r.minutes}Min</h6>
                                         <div className='text-success mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>

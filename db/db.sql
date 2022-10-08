@@ -123,7 +123,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (119),(1);
+INSERT INTO `hibernate_sequence` VALUES (121),(1);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,7 +319,7 @@ CREATE TABLE `user_roles` (
 
 LOCK TABLES `user_roles` WRITE;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT INTO `user_roles` VALUES (1,1),(7,1),(8,1),(9,1),(10,1),(1,2),(7,2),(8,2),(10,2),(11,2),(1,3),(7,3),(8,3),(9,3),(11,3);
+INSERT INTO `user_roles` VALUES (1,1),(7,1),(8,1),(9,1),(10,1),(120,1),(1,2),(7,2),(8,2),(10,2),(11,2),(1,3),(7,3),(8,3),(9,3),(11,3);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,13 +348,9 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'bhupendrasam1404@gmail.com','$2a$10$LDvYVVTEIONoVAzt0Pn29.IQP/YyM67jrw5MTFn3RND82r7ylURym','bhupendra1404',NULL,'Sambare','Bhupendra'),(7,'adminuser@gmail.com','$2a$10$.fjeQSioMiajc1GFDyY5rOBrKmN2JXesZfxT0P0DuumvmV8H.SZpa','adminuser',NULL,'user','admin'),(8,'testuser@gmail.com','$2a$10$2SPr8TD59SHO1lJSI9RwiuTyuHbPdQLGJzCwrMX0HrOsXsXmHM3Iy','tester',NULL,'test','test'),(9,'nomentor@gmail.com','$2a$10$Db6Ca2L2runsmY2juybkD.CPWn2Lm/qQ.NCNZ2RPBfB.KRsuGsfYO','nomentor',NULL,'test','nomentor'),(10,'noadmin@gmail.com','$2a$10$NknuyQnUVCYBVK79CCCl7uUYO8Ro59Ku8YSNioFrSdXITFmdVx8ni','noadmin',NULL,'test','noadmin'),(11,'nouser@gmail.com','$2a$10$MSmVB0C2xW0XFo4WrLA9C.jLbltb.pTyVhbF9sy3Wfgd9fx.Tcz.C','nouser',NULL,'test','nouser');
+INSERT INTO `users` VALUES (1,'bhupendrasam1404@gmail.com','$2a$10$LDvYVVTEIONoVAzt0Pn29.IQP/YyM67jrw5MTFn3RND82r7ylURym','bhupendra1404',NULL,'Sambare','Bhupendra'),(7,'adminuser@gmail.com','$2a$10$.fjeQSioMiajc1GFDyY5rOBrKmN2JXesZfxT0P0DuumvmV8H.SZpa','adminuser',NULL,'user','admin'),(8,'testuser@gmail.com','$2a$10$2SPr8TD59SHO1lJSI9RwiuTyuHbPdQLGJzCwrMX0HrOsXsXmHM3Iy','tester',NULL,'test','test'),(9,'nomentor@gmail.com','$2a$10$Db6Ca2L2runsmY2juybkD.CPWn2Lm/qQ.NCNZ2RPBfB.KRsuGsfYO','nomentor',NULL,'test','nomentor'),(10,'noadmin@gmail.com','$2a$10$NknuyQnUVCYBVK79CCCl7uUYO8Ro59Ku8YSNioFrSdXITFmdVx8ni','noadmin',NULL,'test','noadmin'),(11,'nouser@gmail.com','$2a$10$MSmVB0C2xW0XFo4WrLA9C.jLbltb.pTyVhbF9sy3Wfgd9fx.Tcz.C','nouser',NULL,'test','nouser'),(119,'mohitpawar@gmail.com','$2a$10$2b2dY0FpI.VKdM0HdGs22OI89aTJU3sLGpAgK7HGpTDTg05874iwe','mohitpawar',NULL,'Pawar','Mohit'),(120,'deep1122@gmail.com','$2a$10$ndHEfZM1/Cs9hSJcSFxqx.OoCICvdjJSNrbkHEcZSga0GdvW2QTyS','deep1122',NULL,'Talwarkar','Deep');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'courseapi'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -365,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-05 16:24:04
+-- Dump completed on 2022-10-09  0:50:01

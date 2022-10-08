@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import OwlCarousel from 'react-owl-carousel'; 
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 const Categorie = () => {
 
@@ -62,7 +63,7 @@ const Categorie = () => {
     <div className='mx-5 card rounded-lg shadow p-3 mt-5 mb-5'>
         <div className='d-flex justify-content-between'>
             <h5 className='family-normal mb-3'>Categories</h5>
-            <a href="/categories" className="text-decoration-none text-primary underline ml-3">All Categories</a>
+            <NavLink to="/categories" className="text-decoration-none text-primary underline ml-3">All Categories</NavLink>
         </div>
         <hr className='my-0'/>
         { (catLoding)?
@@ -81,10 +82,10 @@ const Categorie = () => {
                     {(data !== [])?data[0].map((r)=>
                     { 
                             return(
-                            <a className='text-decoration-none rounded-lg m-3 cursol-pointer' href={"/categories/"+r.id}>
+                            <NavLink className='text-decoration-none rounded-lg m-3 cursol-pointer' to={"/categories/"+r.id}>
                                 <img src={window.backend+"/api/public/resources?folder=categories&file="+r.image} width={200} height={200} className=" rounded-lg"/>
                                 <div className='mt-1 mx-auto family-normal text-center'>{r.name}</div>
-                            </a>
+                            </NavLink>
                                 )
                             
                     }):<></>} 

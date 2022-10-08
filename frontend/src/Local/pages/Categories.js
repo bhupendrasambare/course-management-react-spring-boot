@@ -3,6 +3,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { NavLink } from 'react-router-dom';
 
 function Categories() {
 
@@ -27,7 +28,7 @@ function Categories() {
         <>
             <div className='bg-image-white pb-5 pt-4'>
                 <div className='mb-5 mx-3'>
-                    <a href='/' className='text-decoration-none text-primary underline ml-3 mb-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i> Home</a>
+                    <NavLink to='/' className='text-decoration-none text-primary underline ml-3 mb-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i> Home</NavLink>
                     <h3 className='family-normal font-weight-bold ml-2 mt-3 '>Courses Categories</h3>
                     <div className='d-flex flex-wrap'>
                     {(catLoding)?<>
@@ -52,10 +53,10 @@ function Categories() {
                             {(data !== [])?data[0].map((r)=>
                             { 
                                     return(
-                                    <a className='text-decoration-none rounded-lg m-2 cursol-pointer' href={"/categories/"+r.id}>
+                                    <NavLink className='text-decoration-none rounded-lg m-2 cursol-pointer' to={"/categories/"+r.id}>
                                         <img alt={r.name} src={window.backend+"/api/public/resources?folder=categories&file="+r.image} width={300} height={300} className="rounded-lg"/>
                                         <div className='mt-1 mx-auto family-normal text-center'>{r.name}</div>
-                                    </a>
+                                    </NavLink>
                                         )
                                     
                                 

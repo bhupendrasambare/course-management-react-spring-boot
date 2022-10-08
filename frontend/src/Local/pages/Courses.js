@@ -2,6 +2,7 @@ import axios from 'axios';
 import { cat } from 'fontawesome';
 import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
+import { NavLink } from 'react-router-dom';
 
 const Courses = () => {
 
@@ -63,7 +64,7 @@ const Courses = () => {
   return (
     <div className='bg-random-1  pb-5 pt-4'>
        <div className='mb-5 mx-3'>
-            <a href='/' className='text-decoration-none text-primary underline ml-3 mb-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i> Home</a>
+            <NavLink to='/' className='text-decoration-none text-primary underline ml-3 mb-3'><i class="fa fa-angle-left mr-2" aria-hidden="true"></i> Home</NavLink>
             <div className='d-flex flex-wrap justify-content-center mx-auto mt-3'>
                 {(loading)?
                 <>
@@ -114,8 +115,8 @@ const Courses = () => {
                                         <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} height={200} className=" rounded-top-lg"/>
 
                                         <div className='px-2 py-3 bg-light fw-600 h-100 d-flex flex-column'>
-                                            <a href={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none'>{r.name}</a>
-                                            <a target="_blank" href={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></a>
+                                            <NavLink to={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none'>{r.name}</NavLink>
+                                            <NavLink target="_blank" to={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></NavLink>
                                             <div className='mt-auto d-flex justify-content-between'>
                                                 <h6 className='fw-400 text-secondary'>{r.hour}Hr {r.minutes}Min</h6>
                                                 <div className='text-success mt-1 family-normal text-decoration-none'><i class="fa fa-inr" aria-hidden="true"></i> {r.price}</div>

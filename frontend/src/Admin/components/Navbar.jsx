@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { adminLogoutUser } from '../../Redux/Action/AdminDataAction';
 
 export const Navbar = () => {
@@ -26,7 +27,7 @@ export const Navbar = () => {
 
                         <ul className="dropdown-menu shadow border-0 " aria-labelledby="dropdownMenuLink">
                             <li><a className="dropdown-item" onClick={logout}>Logout</a></li>
-                            <li><a className="dropdown-item" href='account'>Account</a></li>
+                            <li><NavLink className="dropdown-item" to='account'>Account</NavLink></li>
                         </ul>
                     </div>
                 </a>

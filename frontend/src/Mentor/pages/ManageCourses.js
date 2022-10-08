@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "../CSS/Courses.css"
 
@@ -49,7 +50,7 @@ function ManageCourses() {
         <div className='m-3 card shadow py-2 px-2'>
             <div className='d-flex w-100'>
                 <div><h5 className='m-3'>Cources</h5></div>
-                <div className=' ml-auto'><a href='./add-course' ><button className='m-3 btn btn-sm btn-success'>Add Course</button></a></div>
+                <div className=' ml-auto'><NavLink to='./add-course' ><button className='m-3 btn btn-sm btn-success'>Add Course</button></NavLink></div>
             </div>
             <div className='mx-2 my-3'>
                 <div className='d-flex align-items-baseline flex-wrap'>
@@ -71,9 +72,9 @@ function ManageCourses() {
                                             </div>
                                             <button className='btn rounded-pill border shadow disabled btn-sm mb-2'>{course.categories.name}</button>
                                             <div className='d-flex'>
-                                                <a target="_blank" href={"/courses/"+course.id} className="me-1 btn-sm btn btn-success px-3">View</a>
-                                                <a href={"/mentor/add-course?id="+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Edit</a>
-                                                <a href={"/mentor/course/chapters/"+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Chapters</a>
+                                                <NavLink target="_blank" to={"/courses/"+course.id} className="me-1 btn-sm btn btn-success px-3">View</NavLink>
+                                                <NavLink to={"/mentor/add-course?id="+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Edit</NavLink>
+                                                <NavLink to={"/mentor/course/chapters/"+course.id} className="px-3 ml-1 btn-sm btn btn-warning">Chapters</NavLink>
                                             </div>
 
                                         </div>
