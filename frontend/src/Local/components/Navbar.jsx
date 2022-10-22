@@ -23,9 +23,6 @@ function Navbar() {
             draggable: true,
             progress: undefined,
         });
-        setTimeout(function (){
-            navigate("/");
-        }.bind(this),3000)
         
     }
 
@@ -55,28 +52,8 @@ function Navbar() {
                         {
                             (user != undefined || user != null)?
                             <>
-                            <li className="nav-item active">
-                                <a className="nav-link">
-                                    <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/cart">
-                                        <i className="fa fa-shopping-cart fs-5 text-warning" aria-hidden="true"></i> <span className="sr-only">(current)</span>
-                                    </NavLink>
-                                </a>
-                            </li>
-                             <li className="nav-item active">
-                                <a className="nav-link">
-                                    <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/account">
-                                        <i className="fa fa-user-circle fs-5 text-primary" aria-hidden="true"></i> <span className="sr-only">(current)</span>
-                                    </NavLink>
-                                </a>
-                            </li>
-                            <li className="nav-item active">
-                                <a className="nav-link" onClick={logout} >
-                                    <div className='nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg'>
-                                        <i className="fa fa-sign-out fs-5 text-danger" aria-hidden="true"></i> <span className="sr-only">(current)</span>
-                                    </div>
-                                </a>
-                            </li>
-                            </>:<>
+                            {(new Date(user.expirey) < new Date())?
+                            <>
                                 <li className="nav-item active">
                                     <a className="nav-link">
                                         <NavLink className="nav-link" to="/user/login">Login <span className="sr-only">(current)</span></NavLink>
@@ -87,6 +64,47 @@ function Navbar() {
                                         <NavLink className="nav-link" to="/user/register">Register <span className="sr-only">(current)</span></NavLink>
                                     </a>
                                 </li>
+                            </>
+                            :
+                            <>
+                            <li className="nav-item active">
+                                    <a className="nav-link">
+                                        <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/cart">
+                                            <i className="fa fa-shopping-cart fs-5 text-warning" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        </NavLink>
+                                    </a>
+                                </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link">
+                                        <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/account">
+                                            <i className="fa fa-user-circle fs-5 text-primary" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        </NavLink>
+                                    </a>
+                                </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link" onClick={logout} >
+                                        <div className='nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg'>
+                                            <i className="fa fa-sign-out fs-5 text-dark" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </>
+                            }
+                            
+
+                            </>:<>
+
+                                <li className="nav-item active">
+                                    <a className="nav-link">
+                                        <NavLink className="nav-link" to="/user/login">Login <span className="sr-only">(current)</span></NavLink>
+                                    </a>
+                                </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link">
+                                        <NavLink className="nav-link" to="/user/register">Register <span className="sr-only">(current)</span></NavLink>
+                                    </a>
+                                </li>
+
                             </>
                         }
 

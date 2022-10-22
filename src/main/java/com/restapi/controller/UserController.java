@@ -1,19 +1,23 @@
 package com.restapi.controller;
 
+import com.restapi.entity.Cart;
+import com.restapi.entity.Courses;
 import com.restapi.entity.Role;
 import com.restapi.entity.User;
 import com.restapi.entity.enums.ERole;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.playload.request.LoginRequest;
 import com.restapi.playload.request.SignupRequest;
+import com.restapi.playload.response.GetCartResponse;
 import com.restapi.playload.response.JwtResponse;
 import com.restapi.playload.response.MessageResponse;
+import com.restapi.repository.OrderRepository;
 import com.restapi.repository.RoleRepository;
 import com.restapi.repository.UserRepository;
 import com.restapi.security.jwt.JwtUtils;
 import com.restapi.security.services.UserDetailsImpl;
 import com.restapi.security.services.UserDetailsServiceImpl;
-import com.restapi.service.UserService;
+import com.restapi.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.http.HttpRequest;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -59,6 +60,18 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CategoriesService categoriesService;
+
+    @Autowired
+    CourseService courseService;
+
+    @Autowired
+    CartServices cartServices;
+
+    @Autowired
+    OrderService orderService;
 
     //@PreAuthorize("hasAnyAuthority('USER')") --
     @PreAuthorize("hasAnyAuthority('USER')")
@@ -149,5 +162,67 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-cart")
+    public ApiResponse<?> getCart(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Cart> carts = cartServices.getCartByUserId(user.getId());
+        List<GetCartResponse> result = new ArrayList<>();
+        for(Cart c:carts){
+            result.add(new GetCartResponse(c));
+        }
+
+        return new ApiResponse<>(HttpStatus.OK,"Courses To Cart",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @PostMapping("/add-to-cart")
+    public ApiResponse<?> addToCart(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        String courseId = request.getParameter("id");
+        if(courseId == null || courseId == ""){
+            return new ApiResponse<>(HttpStatus.OK,"Course not exists","",false);
+        }
+        Courses course = courseService.getCourseById(Long.valueOf(courseId));
+        if(course == null){
+            return new ApiResponse<>(HttpStatus.OK,"Course not exists","",false);
+        }
+
+        if(orderService.courseExistsByUserId(user.getId(),course.getId())){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Already Brought","",false);
+        }
+
+        if(cartServices.courseExistsByUserId(user.getId(),course.getId())){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Already In Cart","",false);
+        }
+
+        Cart cart = new Cart();
+        cart.setUser(user);
+        cart.setCourses(course);
+        cart.setIsDeleted(false);
+        cart.setDate(new Date());
+        cartServices.saveCart(cart);
+
+        return new ApiResponse<>(HttpStatus.OK,"Course Added To Cart","",true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @DeleteMapping("/delete-cart")
+    public ApiResponse<?> deleteCart(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        String id = request.getParameter("id");
+        if(id==null || id == ""){
+            return new ApiResponse<>(HttpStatus.OK,"Something went wrong","",false);
+        }
+        cartServices.deleteCart(Long.valueOf(id));
+
+        return new ApiResponse<>(HttpStatus.OK,"Course removed From Cart","",true);
+    }
 
 }

@@ -276,3 +276,15 @@ margin-top: -60px;
 .vh-100-40{
     min-height: calc(100vh - 90px);
 }
+.w-minus-40{
+    width: calc(100% - 40px);
+}
+.w-minus-60{
+    width: calc(100% - 60px);
+}
+.w-120{
+    width: 120px;
+}
+.w-50{
+    width: 50px;
+}

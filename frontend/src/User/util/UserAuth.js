@@ -13,8 +13,8 @@ export const Auth = ({children}) => {
         return <Navigate to="/user/login" state={{path:location.pathname}}/>
     }else{            
         if(new Date(user.expirey) < new Date()){
-        return <Navigate to="/user/login" state={{path:location.pathname}}/>
-    }
+            return <Navigate to="/user/login" state={{path:location.pathname}}/>
+        }
         return(<>{children}</>)
     }
 
