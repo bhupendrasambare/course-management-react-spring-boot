@@ -8,6 +8,7 @@ import Category from './pages/Category';
 import Courses from './pages/Courses';
 import Course from './pages/Course';
 import Home from "./pages/Home"
+import Contact from './pages/Contact';
 
 function Local() {
 return (
@@ -19,6 +20,7 @@ return (
                 <Route path="/categories/:id" element={<><Category/></>}/>
                 <Route path="/courses" element={<><Courses/></>}/>
                 <Route path="/courses/:id" element={<><Course/></>}/>
+                <Route path="/contact" element={<><Contact/></>}/>
                 <Route path="*" element={<PageNotFound data="/"/>} />
             </Routes>
         <Footer/>

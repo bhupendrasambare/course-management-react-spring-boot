@@ -5,12 +5,12 @@ import {
     FaRegClock,
     FaTrash,
 }from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 function Cart() {
     const user = useSelector((state) => state.userDetails.user);
-
+    const navigate = useNavigate();
     const [cart,setCart] = useState([]);
     const [total,setTotal] = useState(0);
     const [count,setCount] = useState(0);
@@ -34,8 +34,42 @@ function Cart() {
         })
     }
 
+    function orderCart(props){
+        axios({
+            "url":window.backend+"/api/user/save-order?auth=token "+user.token,
+            method:"POST",
+        }).then((result)=>{
+            if(result.data.success){
+                toast.success(result.data.message, {
+                    theme: "colored",
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setTimeout(function (){
+                    navigate("/user/courses");
+                }.bind(this),3000)
+            }
+            else{
+                toast.error(result.data.message, {
+                    theme: "colored",
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        })
+    }
+
     function deleteCart(props){
-        console.log(props)
         axios({
             "url":window.backend+"/api/user/delete-cart?auth=token "+user.token,
             method:"DELETE",
@@ -50,7 +84,7 @@ function Cart() {
                     autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
-                    pauseOnHover: true,
+                    pauseOnHover: false,
                     draggable: true,
                     progress: undefined,
                 });
@@ -80,14 +114,21 @@ function Cart() {
                                         <h6 className="mb-0 text-muted">{count} items</h6>
                                     </div>
                                     <hr className="my-4"/>
+                                    
+                                    {
+                                        (cart.length != 0 && cart[0].length != 0)?<></>:<>
+                                            <div className='text-danger family-normal fw-600'>Your Cart's Empty</div>
+                                        </>
+                                    }
+
                                     {
                                         cart[0]?.map((c)=>{
                                             return (
                                             <>
                                                 <div className="row mb-4 d-flex justify-content-between align-items-center">
                                                     <div className="col-md-2 col-lg-2 col-xl-2">
-                                                        <NavLink to={""}>
-                                                            <img src={window.backend+"/api/public/resources?folder=courses&file="+c.image} className="img-fluid rounded-3" alt={c.courseName}/>
+                                                        <NavLink to={"/courses/"+c.courseId} className="width-max-150">
+                                                            <img src={window.backend+"/api/public/resources?folder=courses&file="+c.image} className="img-fluid rounded-3 " alt={c.courseName}/>
                                                         </NavLink>
                                                     </div>
                                                     <div className="col-md-3 col-lg-3 col-xl-3">
@@ -100,7 +141,7 @@ function Cart() {
                                                         <h6 className="ml-2">{c.hour}Hr {c.minutes}Min</h6>
                                                     </div>
                                                     <div className="col-md-3 mt-2 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 className="mb-0">€ {c.price}</h6>
+                                                    <h6 className="mb-0">₹ {c.price}</h6>
                                                     </div>
                                                     <div className="col-md-1 mt-2 col-lg-1 col-xl-1 text-end">
                                                     <a className="text-muted">
@@ -133,7 +174,7 @@ function Cart() {
 
                                 <div className="d-flex justify-content-between mb-2">
                                     <p className="text-uppercase">items {count}</p>
-                                    <p>€ {total}</p>
+                                    <p>₹ {total}</p>
                                 </div>
 
                                
@@ -142,10 +183,10 @@ function Cart() {
 
                                 <div className="d-flex justify-content-between mb-2">
                                     <p className="text-uppercase">Total price</p>
-                                    <p>€ {total}</p>
+                                    <p>₹ {total}</p>
                                 </div>
 
-                                <button type="button" className="btn btn-dark btn-block btn"
+                                <button type="button" onClick={orderCart} className="btn btn-dark btn-block btn"
                                     data-mdb-ripple-color="dark">Buy Courses</button>
 
                                 </div>

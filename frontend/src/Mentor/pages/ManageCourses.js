@@ -58,10 +58,10 @@ function ManageCourses() {
                         courses.map(course =>{
                             return (
                                 <>
-                                    <div className="course-card flex-fill card m-2">
+                                    <div className="text-decoration-none bg-light rounded-lg m-3 cursol-pointer  course-card card m-2">
                                         <img src={window.backend+"/api/public/resources?folder=courses&file="+course.image}/>
                                         <div className="card-body">
-                                            <h5 className="card-title">{course.name}</h5>
+                                            <h5 className="card-title fs-1 h-37 family-normal">{course.name}</h5>
                                             <div className='d-flex justify-content-between mb-2'>
                                                 <div className="card-text ">
                                                     Duration : {course.hour} : {course.minutes}

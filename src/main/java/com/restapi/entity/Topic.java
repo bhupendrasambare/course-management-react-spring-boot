@@ -33,4 +33,7 @@ public class Topic {
     @Column(name = "position")
     @NotNull
     private int position;
+
+    @Transient
+    private boolean isCompleted = false;
 }

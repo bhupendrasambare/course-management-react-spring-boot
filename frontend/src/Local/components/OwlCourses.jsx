@@ -90,7 +90,7 @@ const OwlCourses = (props) => {
                     {(data !== [] && data[0].length > 0)?data[0].map((r)=>
                     { 
                             return(
-                                <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer course-card flex-fill m-2'>
+                                <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer course-card card shadow m-2'>
                                 <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} className=" rounded-top-lg"/>
 
                                 <div className='px-2 py-3 bg-light fw-600 h-100 d-flex flex-column'>

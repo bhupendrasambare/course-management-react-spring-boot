@@ -1,6 +1,7 @@
 package com.restapi.controller;
 
 import com.restapi.entity.Categories;
+import com.restapi.entity.Contact;
 import com.restapi.entity.Courses;
 import com.restapi.entity.Topic;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
@@ -8,6 +9,7 @@ import com.restapi.playload.response.CourseResponse;
 import com.restapi.playload.response.PublicChapterResponse;
 import com.restapi.playload.response.PublicGetCourseByIdResponse;
 import com.restapi.service.CategoriesService;
+import com.restapi.service.ContactService;
 import com.restapi.service.CourseService;
 import com.restapi.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -45,6 +48,9 @@ public class PublicController {
 
     @Autowired
     TopicService topicService;
+
+    @Autowired
+    ContactService contactService;
 
     @GetMapping("/get-categories")
     @ResponseBody
@@ -136,6 +142,35 @@ public class PublicController {
         response.setChapterTopics(chapterTopics);
 
         return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+    }
+
+    @PostMapping("save-contact")
+    @ResponseBody
+    public ApiResponse<?> saveContact(HttpServletRequest request){
+        String first = request.getParameter("first");
+        String last = request.getParameter("last");
+        String email = request.getParameter("email");
+        String comment = request.getParameter("comment");
+        System.out.println(first);
+        System.out.println(last);
+        System.out.println(email);
+        System.out.println(comment);
+        if(first == null || first == ""){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"First Name Required","",false);
+        }
+        if(last == null || last.equals("")){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Last Name Required","",false);
+        }
+        if(email == null || email.equals("")){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Email Required","",false);
+        }
+        if(comment == null || comment.equals("")){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Comment Required","",false);
+        }
+
+        contactService.saveContact(new Contact(null,first.trim(),last.trim(),email.trim(),comment.trim(),new Date()));
+
+        return new ApiResponse<>(HttpStatus.OK,"Thank You For Your Feedback","",true);
     }
 
     @GetMapping("/resources")

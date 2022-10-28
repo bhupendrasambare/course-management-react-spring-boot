@@ -1,16 +1,12 @@
 package com.restapi.controller;
 
-import com.restapi.entity.Cart;
-import com.restapi.entity.Courses;
-import com.restapi.entity.Role;
-import com.restapi.entity.User;
+import com.restapi.entity.*;
 import com.restapi.entity.enums.ERole;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
+import com.restapi.playload.defaultApiResponse.StringLong;
 import com.restapi.playload.request.LoginRequest;
 import com.restapi.playload.request.SignupRequest;
-import com.restapi.playload.response.GetCartResponse;
-import com.restapi.playload.response.JwtResponse;
-import com.restapi.playload.response.MessageResponse;
+import com.restapi.playload.response.*;
 import com.restapi.repository.OrderRepository;
 import com.restapi.repository.RoleRepository;
 import com.restapi.repository.UserRepository;
@@ -72,6 +68,12 @@ public class UserController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    TopicService topicService;
+
+    @Autowired
+    CompletedTopicService completedTopicService;
 
     //@PreAuthorize("hasAnyAuthority('USER')") --
     @PreAuthorize("hasAnyAuthority('USER')")
@@ -178,6 +180,101 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-order")
+    public ApiResponse<?> getOrder(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Order> orders = orderService.getOrderByUserId(user.getId());
+        List<GetOrderResponse> result = new ArrayList<>();
+        for(Order c:orders){
+            result.add(new GetOrderResponse(c));
+        }
+        return new ApiResponse<>(HttpStatus.OK,"Courses To Cart",result,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-course-by-id")
+    public ApiResponse<?> getCourseById(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        String id = request.getParameter("id");
+        if(id == null || id == "" || id == "undefined"){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+        }
+
+        Order order = orderService.getOrderByUserIdAndCourseId(user.getId(),Long.valueOf(id));
+        if(order == null){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+        }
+        CourseResponse result = new CourseResponse(order.getCourses());
+
+        List<UserChapterResponse> chapterTopics = new ArrayList<>();
+        List<Topic> topics = topicService.getTopicByCourseId(result.getId());
+        List<Long> allChapters = new ArrayList<Long>();
+        for(Topic a:topics){
+            if(!allChapters.contains(a.getChapter().getId())){
+                allChapters.add(a.getChapter().getId());
+            }
+        }
+        List<CompletedTopics> completedTopic = completedTopicService.getCompletedTopicsByUserIdCourseId(user.getId(),result.getId());
+        List<Long> addIds = new ArrayList<>();
+        for(CompletedTopics c:completedTopic){
+            addIds.add(c.getTopic().getId());
+        }
+
+        for(int i=0;i<allChapters.size();i++){
+            UserChapterResponse temp = new UserChapterResponse();
+            List<TopicResponse> topicsString = new ArrayList<>();
+            String chapterName = "";
+            for(Topic a:topics){
+                if(a.getChapter().getId() == allChapters.get(i)) {
+                    chapterName = a.getChapter().getName();
+                    TopicResponse topicResponse = new TopicResponse(a);
+                    if(addIds.contains(topicResponse.getId())){
+                        topicResponse.setIsCompleted(true);
+                    }
+                    topicsString.add(topicResponse);
+                }
+            }
+            temp.setTopics(topicsString);
+            temp.setChapter(chapterName);
+            chapterTopics.add(temp);
+        }
+
+        UserGetCourseByIdResponse response = new UserGetCourseByIdResponse();
+        response.setCourses(result);
+        response.setChapterTopics(chapterTopics);
+
+        return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-account")
+    public ApiResponse<?> getAccount(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        UserAccountResponse response = new UserAccountResponse();
+
+        response.setEmail(user.getEmail());
+        response.setFirst(user.getName());
+        response.setLast(user.getLast());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
+
+        List<StringLong> courses = new ArrayList<>();
+        for(Order c:orderService.getOrderByUserId(user.getId())){
+            courses.add(new StringLong(c.getCourses().getName(),c.getCourses().getId()));
+        }
+
+        response.setCourses(courses);
+
+        return new ApiResponse<>(HttpStatus.OK,"User Details",response,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
     @PostMapping("/add-to-cart")
     public ApiResponse<?> addToCart(HttpServletRequest request){
         String token = request.getParameter("auth");
@@ -208,6 +305,28 @@ public class UserController {
         cartServices.saveCart(cart);
 
         return new ApiResponse<>(HttpStatus.OK,"Course Added To Cart","",true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @PostMapping("/save-order")
+    public ApiResponse<?> placeOrder(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        List<Cart> carts = cartServices.getCartByUserId(user.getId());
+        if(carts == null || carts.size()<1){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Empty Cart","",false);
+        }
+        Order order = new Order();
+        order.setUser(user);
+        order.setDate(new Date());
+        for(Cart c:carts){
+            order.setCourses(c.getCourses());
+            orderService.saveOrder(order);
+            cartServices.deleteCart(c.getId());
+        }
+
+        return new ApiResponse<>(HttpStatus.OK,"Your Order Has Been Placed","",true);
     }
 
     @PreAuthorize("hasAnyAuthority('USER')")

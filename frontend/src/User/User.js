@@ -13,6 +13,8 @@ import Dashboard from './pages/Dashboard';
 import Favourite from './pages/Favourite';
 import Massages from './pages/Massages';
 import { Auth } from './util/UserAuth';
+import EditAccount from './pages/EditAccount';
+import ManageCourse from './LearningPage/ManageCourse';
 
 
 function User() {
@@ -35,6 +37,8 @@ return (
                 <Route path="/messages" element={<Auth><Sidebar><Massages/></Sidebar></Auth>}/>
                 
                 <Route path="/account" element={<Auth><Sidebar><Account/></Sidebar></Auth>}/>
+
+                <Route path="/learn/:id" element={<Auth><Sidebar><ManageCourse/></Sidebar></Auth>}/>
                 
                 <Route path="*" element={<PageNotFound data="/"/>} />
             </Routes>

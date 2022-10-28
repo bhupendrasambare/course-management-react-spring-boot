@@ -35,12 +35,12 @@ const Sidebar = ({children}) => {
             class:" text-warning",
             icon:<FaShoppingCart/>
         },
-        {
-            path:"/user/favourite",
-            name:"Favourite",
-            class:" text-danger",
-            icon:<FaHeart/>
-        },
+        // {
+        //     path:"/user/favourite",
+        //     name:"Favourite",
+        //     class:" text-danger",
+        //     icon:<FaHeart/>
+        // },
         {
             path:"/user/messages",
             name:"Messages",
@@ -56,7 +56,7 @@ const Sidebar = ({children}) => {
     ]
     return (
         <div className="d-flex sidebar-height">
-           <div style={{width: isOpen ? "250px" : "70px"}} onMouseEnter={toggle} onMouseLeave={closeToggle}  className="sidebar-sidebar shadow bg-light">
+           <div style={{width: isOpen ? "250px" : "50px"}} onMouseEnter={toggle} onMouseLeave={closeToggle}  className="sidebar-sidebar shadow bg-light">
                <div className='mt-3'>
                 {
                     menuItem.map((item, index)=>(

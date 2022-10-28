@@ -113,7 +113,7 @@ const Courses = () => {
                         {
                             data[0].map((r)=>{
                                 return(
-                                    <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer  course-card flex-fill card m-2'>
+                                    <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer  course-card card m-2'>
                                         <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} height={300} className=" rounded-top-lg"/>
 
                                         <div className='px-2 py-4 bg-light fw-600 h-100 d-flex flex-column'>

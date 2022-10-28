@@ -42,7 +42,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (121,'2022-10-20 00:34:49',_binary '\0',19,120),(122,'2022-10-21 00:45:39',_binary '',18,120),(123,'2022-10-22 11:56:09',_binary '',22,120),(124,'2022-10-22 12:38:41',_binary '\0',18,120),(125,'2022-10-22 12:40:55',_binary '\0',73,120);
+INSERT INTO `cart` VALUES (121,'2022-10-20 00:34:49',_binary '',19,120),(122,'2022-10-21 00:45:39',_binary '',18,120),(123,'2022-10-22 11:56:09',_binary '',22,120),(124,'2022-10-22 12:38:41',_binary '',18,120),(125,'2022-10-22 12:40:55',_binary '',73,120),(128,'2022-10-24 14:01:48',_binary '',19,120),(129,'2022-10-24 14:05:25',_binary '',19,120),(130,'2022-10-26 23:40:27',_binary '',22,120),(131,'2022-10-26 23:40:50',_binary '',22,120),(132,'2022-10-26 23:41:34',_binary '',22,120);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,6 +101,63 @@ INSERT INTO `chapters` VALUES (24,'<p><strong>Welcome to the first chapter of th
 UNLOCK TABLES;
 
 --
+-- Table structure for table `completed_topics`
+--
+
+DROP TABLE IF EXISTS `completed_topics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `completed_topics` (
+  `id` bigint NOT NULL,
+  `date` datetime DEFAULT NULL,
+  `topic_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKjeqdhho399a83xwbn4epqbjy8` (`topic_id`),
+  KEY `FKp1qqup534nw9m3ielso1w9wts` (`user_id`),
+  CONSTRAINT `FKjeqdhho399a83xwbn4epqbjy8` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`),
+  CONSTRAINT `FKp1qqup534nw9m3ielso1w9wts` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `completed_topics`
+--
+
+LOCK TABLES `completed_topics` WRITE;
+/*!40000 ALTER TABLE `completed_topics` DISABLE KEYS */;
+/*!40000 ALTER TABLE `completed_topics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contact`
+--
+
+DROP TABLE IF EXISTS `contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contact` (
+  `id` bigint NOT NULL,
+  `comments` longtext,
+  `date` datetime DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `last` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contact`
+--
+
+LOCK TABLES `contact` WRITE;
+/*!40000 ALTER TABLE `contact` DISABLE KEYS */;
+INSERT INTO `contact` VALUES (126,'This is only for testing purposes.','2022-10-24 00:10:58','bhupendra@gmail.com','sambare','Bhupendra');
+/*!40000 ALTER TABLE `contact` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `courses`
 --
 
@@ -154,7 +211,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (126),(1),(1),(1);
+INSERT INTO `hibernate_sequence` VALUES (134),(1),(1),(1),(1);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +327,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (127,'2022-10-24 13:58:58',73,120),(133,'2022-10-27 23:01:59',19,120);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-23  0:50:27
+-- Dump completed on 2022-10-29  2:17:51
