@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 export const Card = () => {
 
@@ -33,18 +34,15 @@ export const Card = () => {
                             </>:<>
                                 
                             </>}
+                            <div className='d-flex flex-wrap justify-content-start mt-3'>
+                                <p className=' mr-4'>
+                                    <Link to={"/courses"}><img src="./images/celebrate.png" height={20} width={20}/>&ensp;&ensp;New Courses</Link>
+                                </p>
 
-                            <p className='mt-2'>
-                                <a><img src="./images/celebrate.png" height={20} width={20}/>&ensp;&ensp;New Courses</a>
-                            </p>
-                            
-                            <p>
-                                <a><img src="./images/blog-icon.jpg" height={20} width={20}/>&ensp;&ensp;Blogs</a>
-                            </p>
-
-                            <p>
-                                <a><img src="./images/user-icon.jpg" height={20} width={20}/>&ensp;&ensp;Users Account</a>
-                            </p>
+                                <p>
+                                    <Link to={"/user/account"}><img src="./images/user-icon.jpg" height={20} width={20}/>&ensp;&ensp;Users Account</Link>
+                                </p>
+                            </div>
 
                         </div>
                     </div>

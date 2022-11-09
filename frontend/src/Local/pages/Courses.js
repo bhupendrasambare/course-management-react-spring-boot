@@ -113,10 +113,10 @@ const Courses = () => {
                         {
                             data[0].map((r)=>{
                                 return(
-                                    <a className='text-decoration-none bg-light rounded-lg m-3 cursol-pointer  course-card card m-2'>
+                                    <a className='text-decoration-none bg-light rounded m-3 cursol-pointer  course-card card m-2 border-0 shadow'>
                                         <img src={window.backend+"/api/public/resources?folder=courses&file="+r.image} height={300} className=" rounded-top-lg"/>
 
-                                        <div className='px-2 py-4 bg-light fw-600 h-100 d-flex flex-column'>
+                                        <div className='px-3 py-4 bg-light fw-600 h-100 d-flex flex-column'>
                                             <NavLink to={"/courses/"+r.id} className='mt-1 family-normal text-decoration-none'>{r.name}</NavLink>
                                             <NavLink target="_blank" to={"/user/"+r.mentorName} className='mt-1 family-normal text-decoration-none'><small>{r.mentor}</small></NavLink>
                                             <div className='mt-auto d-flex justify-content-between'>

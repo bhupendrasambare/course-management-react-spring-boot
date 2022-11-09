@@ -15,6 +15,7 @@ import Massages from './pages/Massages';
 import { Auth } from './util/UserAuth';
 import EditAccount from './pages/EditAccount';
 import ManageCourse from './LearningPage/ManageCourse';
+import Learning from './LearningPage/Learning';
 
 
 function User() {
@@ -39,6 +40,8 @@ return (
                 <Route path="/account" element={<Auth><Sidebar><Account/></Sidebar></Auth>}/>
 
                 <Route path="/learn/:id" element={<Auth><Sidebar><ManageCourse/></Sidebar></Auth>}/>
+
+                <Route path="/learning" element={<Auth><Sidebar><Learning/></Sidebar></Auth>}/>
                 
                 <Route path="*" element={<PageNotFound data="/"/>} />
             </Routes>

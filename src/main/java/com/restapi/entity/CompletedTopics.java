@@ -32,4 +32,9 @@ public class CompletedTopics {
     @Column(name = "date")
     private Date date;
 
+    public CompletedTopics(User user,Topic topic){
+        this.user = user;
+        this.topic = topic;
+        this.date = new Date();
+    }
 }

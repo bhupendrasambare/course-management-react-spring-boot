@@ -16,7 +16,7 @@ public class CompletedTopicService {
     public CompletedTopics saveCompletedTopics(CompletedTopics topics){
         CompletedTopics completedTopics = completedTopicsRepository.getCompletedTopicsByTopicIdUserId(topics.getTopic().getId(),topics.getUser().getId()).orElse(null);
         if(completedTopics == null){
-            return completedTopicsRepository.save(completedTopics);
+            return completedTopicsRepository.save(topics);
         }
         return completedTopics;
     }

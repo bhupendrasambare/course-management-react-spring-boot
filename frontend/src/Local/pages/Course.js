@@ -104,7 +104,7 @@ const Course = () => {
             </>:<>
             
                 <div className='ml-3'>
-                    <img src={window.backend+"/api/public/resources?folder=courses&file="+course.image} className="m-2 width-max-300"/>
+                    <img src={window.backend+"/api/public/resources?folder=courses&file="+course.image} className="m-2 w-100 width-max-300"/>
                 </div>
                 <div className='ml-3 d-flex flex-column'>
                     <h4 className="family-normal fw-600 mt-1 m-2"h4>{course.name}</h4>
@@ -149,8 +149,8 @@ const Course = () => {
             </>:<>
                 <div className='d-flex flex-wrap'>
 
-                    <div className='ml-3 mt-3 min-width-500 col-md-6 w-50'dangerouslySetInnerHTML={{__html: course.description}}></div>
-                    <div className='mt-3 ml-3 w-10 h-auto flex-fill' >
+                    <div className='ml-3 mt-3 min-width-400 col-md-6 w-50' dangerouslySetInnerHTML={{__html: course.description}}></div>
+                    <div className='mt-3 ml-3 min-width-400  w-10 h-auto flex-fill' >
                         <div className='shadow card rounded-lg p-3  w-100'>
                             <h4  className='family-normal'>Course Details</h4>
                             {

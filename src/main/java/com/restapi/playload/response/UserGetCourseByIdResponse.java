@@ -12,4 +12,5 @@ import java.util.List;
 public class UserGetCourseByIdResponse {
     List<UserChapterResponse> chapterTopics;
     CourseResponse courses;
+    double percentage = 0;
 }

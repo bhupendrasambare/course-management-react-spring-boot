@@ -194,6 +194,100 @@ public class UserController {
     }
 
     @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-user-topic")
+    public ApiResponse<?> getTopic(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        String id = request.getParameter("id");
+        String courseId = request.getParameter("course");
+
+        UserTopicResponse response = null;
+
+        if(courseId != null && courseId != ""){
+            Courses course= courseService.getCourseById(Long.valueOf(courseId));
+            if(course == null){
+                return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+            }
+            if(orderService.courseExistsByUserId(user.getId(),course.getId())){
+                List<Topic> topics = topicService.getTopicByCourseId(Long.valueOf(courseId));
+                if(topics.size() <= 0){
+                    return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+                }
+
+                response = new UserTopicResponse(topics.get(0));
+                if(topics.size() > 1){
+                    response.setNextId(topics.get(1).getId());
+                }
+                if(topics.size() == 1){
+                    response.setCompleted(true);
+                }
+                return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+            }else{
+                return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+            }
+        }
+
+        if(id != null && id != ""){
+            Topic topic= topicService.getTopicById(Long.valueOf(id));
+            if(topic == null){
+                return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+            }
+            if(orderService.courseExistsByUserId(user.getId(),topic.getChapter().getCourses().getId())){
+
+                response = new UserTopicResponse(topic);
+
+                List<Topic> topicList = topicService.getTopicByCourseId(topic.getChapter().getCourses().getId());
+                int check = 0;
+                for(Topic t: topicList){
+                    if(t.getId() == response.getId() && check == 0){
+                        check = 1;
+                        continue;
+                    }
+                    if(check == 1){
+                        response.setNextId(t.getId());
+                        check = 2;
+                    }
+                    if(check == 2){
+                        break;
+                    }
+                }
+                if(check == 1){
+                    response.setCourseCompleted(true);
+                }
+                return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+
+            }else{
+                return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+            }
+        }
+
+
+        return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Course Nou Found",null,false);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/mark-as-read")
+    public ApiResponse<?> markAsRead(HttpServletRequest request){
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        String topicId = request.getParameter("topic");
+        if(topicId != null && topicId != ""){
+            Topic topic = topicService.getTopicById(Long.valueOf(topicId));
+            CompletedTopics completedTopics = new CompletedTopics();
+            completedTopics.setTopic(topic);
+            completedTopics.setUser(user);
+            completedTopics.setDate(new Date());
+            completedTopicService.saveCompletedTopics(completedTopics);
+
+            return new ApiResponse<>(HttpStatus.OK,"Courses Details",true,true);
+        }
+
+        return new ApiResponse<>(HttpStatus.OK,"Topic Not Found",false,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
     @GetMapping("/get-course-by-id")
     public ApiResponse<?> getCourseById(HttpServletRequest request){
         String token = request.getParameter("auth");
@@ -223,17 +317,19 @@ public class UserController {
         for(CompletedTopics c:completedTopic){
             addIds.add(c.getTopic().getId());
         }
-
+        float count = 0,nums = 0;
         for(int i=0;i<allChapters.size();i++){
             UserChapterResponse temp = new UserChapterResponse();
             List<TopicResponse> topicsString = new ArrayList<>();
             String chapterName = "";
             for(Topic a:topics){
                 if(a.getChapter().getId() == allChapters.get(i)) {
+                    nums++;
                     chapterName = a.getChapter().getName();
                     TopicResponse topicResponse = new TopicResponse(a);
                     if(addIds.contains(topicResponse.getId())){
                         topicResponse.setIsCompleted(true);
+                        count++;
                     }
                     topicsString.add(topicResponse);
                 }
@@ -246,6 +342,10 @@ public class UserController {
         UserGetCourseByIdResponse response = new UserGetCourseByIdResponse();
         response.setCourses(result);
         response.setChapterTopics(chapterTopics);
+        System.out.println(count);
+        System.out.println(nums);
+        System.out.println(count/nums);
+        response.setPercentage((count/nums) * 100);
 
         return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
     }

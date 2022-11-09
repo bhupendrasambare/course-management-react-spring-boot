@@ -3,8 +3,10 @@ import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 import {   useLocation, useNavigate, useParams } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+
+import "../Css/User.css"
 
 import {
     FaCheckCircle,
@@ -19,6 +21,7 @@ const ManageCourse = () => {
     const [courseLoading,setCourseLoading] = useState(true);
     const [course,setCourse] = useState(null);
     const [chapters,setChapters] = useState(null);
+    const [percentage,setPercentage] = useState(0);
     const {id} = useParams()
 
     useEffect(()=>{
@@ -32,6 +35,7 @@ const ManageCourse = () => {
                 setCourse(result.data.data.courses);
                 setChapters(result.data.data.chapterTopics)
                 setCourseLoading(false)
+                setPercentage(result.data.data.percentage.toFixed(0))
             }else{
                 navigate("/user/courses");
             }
@@ -57,7 +61,7 @@ const ManageCourse = () => {
             </>:<>
             
                 <div className='ml-3'>
-                    <img src={window.backend+"/api/public/resources?folder=courses&file="+course?.image} className="m-2 width-max-300"/>
+                    <img src={window.backend+"/api/public/resources?folder=courses&file="+course?.image} className="m-2 w-100 width-max-300"/>
                 </div>
                 <div className='ml-3 d-flex flex-column'>
                     <h4 className="family-normal fw-600 mt-1 m-2"h4>{course?.name}</h4>
@@ -69,13 +73,24 @@ const ManageCourse = () => {
                     <p className='family-normal mt-1 m-2 fs-2'>Created by 
                         <a target="_target" className='mt-1 family-normal text-decoration-none text-primary'><small>{" "+course?.mentor}</small></a>
                     </p>
-                    <button className=' btn-sm form-control btn btn-success family-normal mt-1 m-2 fs-2'>Start Learning</button> 
-
+                    <Link to={"/user/learning?course="+course?.id}><button className=' btn-sm form-control btn btn-success family-normal mt-1 m-2 fs-2'>{(percentage == 0)?"Start Learning":"Continue Learning"}</button></Link>
+                    {
+                        (percentage != 0)?<>
+                            <div className='ml-2'>Progress {percentage}%</div>
+                            <div className='border rounded'>
+                                
+                                <div className="progress ml-2">
+                                    <div className={"progress-bar progress-bar-striped progress-bar-animated w-"+ percentage} role="progressbar" aria-valuenow="25" aria-valuemin="10" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </>:<></>
+                    }
+                    
                 </div>
 
             </>}
         </div>
-        <div className='my-3 px-4  ml-3'>
+        <div className='my-3 px-4'>
             {(courseLoading)?<>
                 <div>
                     <Skeleton width={300} height={300} className="mx-4 m-2 w-100"/>
@@ -83,8 +98,8 @@ const ManageCourse = () => {
             </>:<>
                 <div className='d-flex flex-wrap'>
 
-                    <div className='ml-3 mt-3 min-width-500 col-md-6 w-50'dangerouslySetInnerHTML={{__html: course?.description}}></div>
-                    <div className='mt-3 ml-3 w-10 h-auto flex-fill' >
+                    <div className='ml-3 mt-3 min-width-400 col-md-6 w-50' dangerouslySetInnerHTML={{__html: course?.description}}></div>
+                    <div className='mt-3 ml-3 min-width-400  w-10 h-auto flex-fill' >
                         <div className='shadow card rounded-lg p-3  w-100'>
                             <h4  className='family-normal'>Course Details</h4>
                             {
@@ -108,9 +123,11 @@ const ManageCourse = () => {
                                                         <>
                                                             <div className="collapse" id={"collapseExample"+number}>
                                                                 <div className="card card-body">
+                                                                <Link to={"/user/learning?topic="+t?.id}>
                                                                 <div>
-                                                                    {(t?.isCompleted)?<><FaCheckCircle className='fs-5 mr-3 text-success'/></>:<><FaCheckCircle className='fs-5 mr-3 text-muted'/></>}
+                                                                    {(t?.isCompleted)?<><FaCheckCircle className='fs-5 mr-3 text-success'/></>:<><FaCheckCircle className='fs-5 mr-3 text-black-50'/></>}
                                                                 {t?.topic}</div>
+                                                                </Link>
                                                                 </div>
                                                             </div>
                                                         </>)
