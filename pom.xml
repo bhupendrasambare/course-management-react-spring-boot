@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.restapi</groupId>
-	<artifactId>react-ecommerce</artifactId>
-	<version>courseapi</version>
-	<name>react-ecommerce</name>
+	<artifactId>course</artifactId>
+	<version>api</version>
+	<name>course</name>
 	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>

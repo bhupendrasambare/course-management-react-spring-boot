@@ -7,7 +7,7 @@ import PageNotFound from "./OffPage/PageNotFound"
 function App() {
     return (
         <>
-            <HashRouter>
+            <BrowserRouter  basename={process.env.PUBLIC_URL}>
               <Routes>
                     <Route path="/*" element={<Local/>}/>
                     <Route path="/user/*" element={<User/>} />
@@ -15,7 +15,7 @@ function App() {
                     <Route path="/mentor/*" element={<Mentor/>} />
                     <Route path="*" element={<PageNotFound/>} />
               </Routes>
-            </HashRouter>
+            </BrowserRouter>
         </>
     );
 }

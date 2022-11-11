@@ -14,7 +14,7 @@ export const Card = () => {
                     <div className='container mt-5 shadow shadow-light rounded bg-light p-2'>
 
                         
-                        <img className="mr-autor navbar-brand" src='/images/light-logo.jpeg' height={150} width={170}/>
+                        <img className="mr-autor navbar-brand" src={process.env.PUBLIC_URL + '/images/light-logo.jpeg'} height={150} width={170}/>
 
                         <div className='ml-2'>
 
@@ -36,11 +36,11 @@ export const Card = () => {
                             </>}
                             <div className='d-flex flex-wrap justify-content-start mt-3'>
                                 <p className=' mr-4'>
-                                    <Link to={"/courses"}><img src="./images/celebrate.png" height={20} width={20}/>&ensp;&ensp;New Courses</Link>
+                                    <Link to={"/courses"}><img src={process.env.PUBLIC_URL + "/images/celebrate.png"} height={20} width={20}/>&ensp;&ensp;New Courses</Link>
                                 </p>
 
                                 <p>
-                                    <Link to={"/user/account"}><img src="./images/user-icon.jpg" height={20} width={20}/>&ensp;&ensp;Users Account</Link>
+                                    <Link to={"/user/account"}><img src={process.env.PUBLIC_URL + "/images/user-icon.jpg"} height={20} width={20}/>&ensp;&ensp;Users Account</Link>
                                 </p>
                             </div>
 

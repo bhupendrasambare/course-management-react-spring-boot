@@ -31,7 +31,7 @@ function Navbar() {
     <ToastContainer />          
             <nav className="navbar navbar-expand-lg navbar-light bg-transparent shadow">
                 
-                <NavLink  to="/"><img className="ml-5 navbar-brand" src='/images/nav-img.jpeg' height={50}/> </NavLink>
+                <NavLink  to="/"><img className="ml-5 navbar-brand" src={process.env.PUBLIC_URL + '/images/nav-img.jpeg'} height={50}/> </NavLink>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -66,29 +66,29 @@ function Navbar() {
                                 </li>
                             </>
                             :
-                            <>
-                            <li className="nav-item active">
+                            <div className='d-flex justify-content-start'>
+                                <li className="nav-item active">
                                     <a className="nav-link">
-                                        <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/cart">
-                                            <i className="fa fa-shopping-cart fs-5 text-warning" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        <NavLink className="nav-link " to="/user/cart">
+                                            <i className="fa fa-shopping-cart fs-5 text-warning  sidebar-icon px-2 py-1 rounded-pill shadow-lg" aria-hidden="true"></i> <span className="sr-only">(current)</span>
                                         </NavLink>
                                     </a>
                                 </li>
-                                <li className="nav-item active">
+                                <li className="nav-item active mx-1">
                                     <a className="nav-link">
-                                        <NavLink className="nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg" to="/user/account">
-                                            <i className="fa fa-user-circle fs-5 text-primary" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        <NavLink className="nav-link " to="/user/account">
+                                            <i className="fa fa-user-circle fs-5 text-primary  sidebar-icon px-2 py-1 rounded-pill shadow-lg" aria-hidden="true"></i> <span className="sr-only">(current)</span>
                                         </NavLink>
                                     </a>
                                 </li>
                                 <li className="nav-item active">
                                     <a className="nav-link" onClick={logout} >
-                                        <div className='nav-link sidebar-icon px-2 py-1 rounded-pill shadow-lg'>
-                                            <i className="fa fa-sign-out fs-5 text-dark" aria-hidden="true"></i> <span className="sr-only">(current)</span>
+                                        <div className='nav-link '>
+                                            <i className="fa fa-sign-out fs-5 text-dark  sidebar-icon px-2 py-1 rounded-pill shadow-lg" aria-hidden="true"></i> <span className="sr-only">(current)</span>
                                         </div>
                                     </a>
                                 </li>
-                            </>
+                            </div>
                             }
                             
 
