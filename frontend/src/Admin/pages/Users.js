@@ -11,7 +11,7 @@ function Users() {
 
     useEffect(() =>{
         if(data == null){
-            axios('http://localhost:8080/api/admin/get-users-by-role?auth=token '+admin.token+'&role=user').then((response) =>{
+            axios(window.backend+'/api/admin/get-users-by-role?auth=token '+admin.token+'&role=user').then((response) =>{
                 $("#data-table").DataTable({
                     data: response.data.data,
                     columns: [

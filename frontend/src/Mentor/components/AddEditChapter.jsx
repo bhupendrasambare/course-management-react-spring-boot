@@ -36,7 +36,7 @@ export const AddEditChapter = (props) => {
             formData.append("chapter",props.chapter);
         }
         axios({
-            url: "http://localhost:8080/api/mentor/add-edit-chapter?auth=token "+mentor.token,
+            url: window.backend+"/api/mentor/add-edit-chapter?auth=token "+mentor.token,
             method:"POST",
             data:formData,
         }).then((res) => { 
@@ -84,7 +84,7 @@ export const AddEditChapter = (props) => {
     useEffect(() =>{
         if(props.chapter != null && chapter == null){
             axios({
-                url: "http://localhost:8080/api/mentor/get-chapter-by-id?auth=token "+mentor.token,
+                url: window.backend+"/api/mentor/get-chapter-by-id?auth=token "+mentor.token,
                 params:{
                     id:props.chapter,
                 }

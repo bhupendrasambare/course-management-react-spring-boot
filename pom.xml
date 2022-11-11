@@ -10,8 +10,9 @@
 	</parent>
 	<groupId>com.restapi</groupId>
 	<artifactId>react-ecommerce</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>courseapi</version>
 	<name>react-ecommerce</name>
+	<packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>16</java.version>
@@ -24,7 +25,11 @@
 			<artifactId>frontend-maven-plugin</artifactId>
 			<version>1.12.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

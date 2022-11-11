@@ -52,7 +52,7 @@ export default function ManageTopics() {
 
     useEffect(() =>{
         if(data == null){
-            axios('http://localhost:8080/api/mentor/get-topics?auth=token '+mentor.token+'&id='+id).then((response) =>{
+            axios(window.backend+'/api/mentor/get-topics?auth=token '+mentor.token+'&id='+id).then((response) =>{
                     setData(response.data.data)
                     setTimeout(function(){
                     $("#data-table").DataTable();

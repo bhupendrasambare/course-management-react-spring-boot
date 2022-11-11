@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import User from "./User/User"
 import Admin from "./Admin/Admin"
 import Local from "./Local/Local"
@@ -7,7 +7,7 @@ import PageNotFound from "./OffPage/PageNotFound"
 function App() {
     return (
         <>
-            <BrowserRouter>
+            <HashRouter>
               <Routes>
                     <Route path="/*" element={<Local/>}/>
                     <Route path="/user/*" element={<User/>} />
@@ -15,7 +15,7 @@ function App() {
                     <Route path="/mentor/*" element={<Mentor/>} />
                     <Route path="*" element={<PageNotFound/>} />
               </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </>
     );
 }
