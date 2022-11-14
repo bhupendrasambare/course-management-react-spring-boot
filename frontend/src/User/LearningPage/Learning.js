@@ -2,8 +2,8 @@ import axios from 'axios';
 import React ,{ useEffect,useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
-import {   useLocation, useNavigate, useParams } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
+import {   useLocation, useNavigate } from 'react-router';
+import { Link, NavLink, useSearchParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 import "../Css/User.css"
@@ -18,8 +18,9 @@ function Learning() {
     const user = useSelector((state) => state.userDetails.user);
 
     const search = useLocation().search;
-    const course = new URLSearchParams(search).get('course');
-    const id = new URLSearchParams(search).get('topic');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const course = searchParams.get("course");
+    const id = new searchParams.get('topic');
 
     const [topic,setTopic] = useState(null);
 

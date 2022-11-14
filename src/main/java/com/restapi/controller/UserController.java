@@ -417,10 +417,10 @@ public class UserController {
         if(carts == null || carts.size()<1){
             return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"Empty Cart","",false);
         }
-        Order order = new Order();
-        order.setUser(user);
-        order.setDate(new Date());
         for(Cart c:carts){
+            Order order = new Order();
+            order.setUser(user);
+            order.setDate(new Date());
             order.setCourses(c.getCourses());
             orderService.saveOrder(order);
             cartServices.deleteCart(c.getId());

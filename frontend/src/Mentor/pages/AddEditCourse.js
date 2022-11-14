@@ -7,11 +7,13 @@ import ReactSummernote from "react-summernote";
 import "react-summernote/dist/react-summernote.css"; // import styles
 import "bootstrap/dist/css/bootstrap.css";
 import "../CSS/Courses.css"
+import { useSearchParams } from 'react-router-dom';
 
 function AddEditCourse() {
 
     const mentor = useSelector((state) => state.mentorDetails.mentor);
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     // form parameter
     const [id,setId] = useState();
     const [staticName,setStaticName] = useState("");
@@ -190,8 +192,7 @@ function AddEditCourse() {
 
     useEffect(() =>{
 
-        const queryparams = new URLSearchParams(window.location.search);
-        setId(queryparams.get("id"));
+        setId(searchParams.get("id"));
 
         if(id != null && id != undefined && name == ""){
             axios({
