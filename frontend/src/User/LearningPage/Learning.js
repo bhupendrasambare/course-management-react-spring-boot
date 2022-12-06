@@ -20,7 +20,7 @@ function Learning() {
     const search = useLocation().search;
     const [searchParams, setSearchParams] = useSearchParams();
     const course = searchParams.get("course");
-    const id = new searchParams.get('topic');
+    const id = searchParams.get('topic');
 
     const [topic,setTopic] = useState(null);
 

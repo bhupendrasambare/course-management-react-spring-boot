@@ -339,8 +339,11 @@ margin-top: -60px;
 .w-120{
     width: 120px;
 }
-.w-50{
-    width: 50px;
+.w-120{
+    width: 120px;
+}
+.w-300{
+    width: 300px;
 }
 .contact-btn{
     border-color: #25274d;

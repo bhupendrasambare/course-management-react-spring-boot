@@ -25,6 +25,10 @@ public class CompletedTopicService {
         return completedTopicsRepository.getCompletedTopicsByUserIdCourseId(user,course);
     }
 
+    public List<CompletedTopics> getCompletedTopicsByUserId(Long user){
+        return completedTopicsRepository.getCompletedTopicsByUserId(user);
+    }
+
     public CompletedTopics getCompletedTopicsByTopicIdUserId(Long topic, Long user){
         return completedTopicsRepository.getCompletedTopicsByTopicIdUserId(topic,user).orElse(null);
     }

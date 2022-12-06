@@ -4,6 +4,7 @@ import com.restapi.entity.*;
 import com.restapi.entity.enums.ERole;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.playload.defaultApiResponse.StringLong;
+import com.restapi.playload.mislenious.TopicDateGraph;
 import com.restapi.playload.request.LoginRequest;
 import com.restapi.playload.request.SignupRequest;
 import com.restapi.playload.response.*;
@@ -348,6 +349,43 @@ public class UserController {
         response.setPercentage((count/nums) * 100);
 
         return new ApiResponse<>(HttpStatus.OK,"Courses Details",response,true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/get-dashboard")
+    public ApiResponse<?> getDashboard(HttpServletRequest request) {
+        String token = request.getParameter("auth");
+        User user =  loginService.getUserFromJwtToken(token);
+
+        UserDashboardResponse response = new UserDashboardResponse();
+        List<CourseResponse> coursesList = new ArrayList<>();
+        List<TopicResponse> topicList = new ArrayList<>();
+        List<TopicDateGraph> graph = new ArrayList<>();
+
+        List<Order> courses = orderService.getOrderByUserId(user.getId());
+        List<CompletedTopics> completedTopics = completedTopicService.getCompletedTopicsByUserId(user.getId());
+
+        for(CompletedTopics c: completedTopics){
+            topicList.add(new TopicResponse(c.getTopic()));
+            TopicDateGraph tDetails = new TopicDateGraph();
+            tDetails.setTopic(new TopicResponse(c.getTopic()));
+            tDetails.setDate(c.getDate());
+            tDetails.setDateName(c.getDate().toString());
+            graph.add(tDetails);
+        }
+
+        for(Order c: courses){
+            coursesList.add(new CourseResponse(c.getCourses()));
+        }
+
+        response.setCountCourses(coursesList.size());
+        response.setCountTopics(topicList.size());
+        response.setCourses(coursesList);
+        response.setTopics(topicList);
+
+
+
+        return new ApiResponse<>(HttpStatus.OK,"account Details",response,true);
     }
 
     @PreAuthorize("hasAnyAuthority('USER')")

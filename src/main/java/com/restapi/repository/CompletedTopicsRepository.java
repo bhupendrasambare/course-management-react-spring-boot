@@ -16,6 +16,9 @@ public interface CompletedTopicsRepository extends JpaRepository<CompletedTopics
     @Query("Select u from CompletedTopics u where u.topic.chapter.courses.id=:course and u.user.id=:user")
     List<CompletedTopics> getCompletedTopicsByUserIdCourseId(@Param("user")Long user,@Param("course")Long course);
 
+    @Query("Select u from CompletedTopics u where u.user.id = :user")
+    List<CompletedTopics> getCompletedTopicsByUserId(@Param("user")Long user);
+
     @Query("Select u from CompletedTopics u where u.topic.id=:topic and u.user.id=:user")
     Optional<CompletedTopics> getCompletedTopicsByTopicIdUserId(@Param("topic")Long topic,@Param("user")Long user);
 }

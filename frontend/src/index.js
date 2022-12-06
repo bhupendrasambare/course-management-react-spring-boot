@@ -30,7 +30,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import store,{persistor} from "./Redux/Store"
 import {PersistGate}  from "redux-persist/integration/react"
 
-window.backend = "http://localhost:9090/course-api";
+window.backend = "http://localhost:8080";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
