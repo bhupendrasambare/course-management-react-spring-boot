@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
-import OwlCarousel from 'react-owl-carousel'; 
+// import OwlCarousel from 'react-owl-carousel'; 
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
@@ -66,7 +66,7 @@ const Categorie = () => {
             <NavLink to="/categories" className="text-decoration-none text-primary underline ml-3">All Categories</NavLink>
         </div>
         <hr className='my-0'/>
-        { (catLoding)?
+        {/* { (catLoding)?
             <OwlCarousel  className="owl-theme"  {...options}>  
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
@@ -92,7 +92,7 @@ const Categorie = () => {
                 </OwlCarousel>
                 
             </>
-        }
+        } */}
     </div>
   )
 }

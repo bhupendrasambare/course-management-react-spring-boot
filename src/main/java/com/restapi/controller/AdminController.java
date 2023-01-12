@@ -1,11 +1,13 @@
 package com.restapi.controller;
 
 import com.restapi.entity.Categories;
+import com.restapi.entity.Courses;
 import com.restapi.entity.User;
 import com.restapi.entity.enums.ERole;
 import com.restapi.playload.defaultApiResponse.ApiResponse;
 import com.restapi.security.jwt.JwtUtils;
 import com.restapi.service.CategoriesService;
+import com.restapi.service.CourseService;
 import com.restapi.service.FileUploadService;
 import com.restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,9 @@ public class AdminController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CourseService courseService;
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/get-users-by-role")
@@ -99,4 +104,12 @@ public class AdminController {
         Categories result = categoriesService.saveCategories(categories);
         return new ApiResponse<Categories>(HttpStatus.OK,"All Categories",result,true);
     }
+
+    @GetMapping("/get-courses")
+    @ResponseBody
+    public ApiResponse<?> getCourses(HttpServletRequest request){
+        List<Courses> courses = courseService.findAllCourses();
+        return new ApiResponse<>(HttpStatus.OK,"All Categories",courseService.getCourseResponse(courses),true);
+    }
+
 }

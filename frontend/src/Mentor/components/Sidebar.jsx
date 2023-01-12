@@ -34,11 +34,6 @@ const Sidebar = ({children}) => {
             name:"Courses",
             icon:<FaBookOpen/>
         },
-        {
-            path:"/mentor/feedbacks",
-            name:"Feedback",
-            icon:<FaCommentAlt/>
-        }
     ]
     return (
         <div className="d-flex sidebar-height">

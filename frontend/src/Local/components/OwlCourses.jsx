@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
-import OwlCarousel from 'react-owl-carousel'; 
+// import OwlCarousel from 'react-owl-carousel'; 
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
@@ -74,7 +74,7 @@ const OwlCourses = (props) => {
             </div>
         </>:<>Courses related to {props?.name}</>}
         </h5><hr className='my-0'/>
-        { (catLoding)?
+        {/* { (catLoding)?
             <OwlCarousel  className="owl-theme"  {...options}>  
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
                 <div className='m-3'><Skeleton width={200} height={200}/></div>      
@@ -116,7 +116,7 @@ const OwlCourses = (props) => {
                 </>:<></>}
                 
             </>
-        }
+        } */}
     </div>
   )
 
